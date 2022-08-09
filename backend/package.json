@@ -1,18 +1,24 @@
 {
-  "type": "module",
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "API rest del diario digital",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/No-Country/c6-40-t-mern.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/No-Country/c6-40-t-mern/issues"
+  },
+  "homepage": "https://github.com/No-Country/c6-40-t-mern#readme",
   "dependencies": {
     "express": "^4.18.1",
+    "mongodb": "^4.8.1",
     "mongoose": "^6.5.1"
   }
 }
