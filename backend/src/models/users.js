@@ -2,8 +2,8 @@ const Joi = require('joi')
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/
-const validatePassword = (password) => re.test(password)
+const rePassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/
+const validatePassword = (password) => rePassword.test(password)
 
 const userSchema = new Schema({
     username: {
@@ -47,7 +47,7 @@ const userSchema = new Schema({
 const validateUser = (user) => {
     const schema = Joi.object({
         username: Joi.string().min(6).max(50).required(),
-        password: Joi.string().min(8).max(1024).regex(re).required(),
+        password: Joi.string().min(8).max(1024).regex(rePassword).required(),
         email: Joi.string().min(5).max(255).required().email(),
         role: Joi.string().valid('user', 'writer', 'admin').required()
     })
