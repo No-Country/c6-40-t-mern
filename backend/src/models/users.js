@@ -42,32 +42,36 @@ const userSchema = new Schema({
             return null
         }
     }
-})
+}, { timestamps: true, versionKey: false })
 
 const validateUser = (user) => {
     const schema = Joi.object({
         username: Joi.string().min(6).max(50).required(),
-        password: Joi.string().min(8).max(1024).regex(rePassword).required(),
+        password: Joi.string().min(8).max(1024).regex(rePassword).required().messages({ 'string.pattern.base': 'Invalid password: It must container at least  one uppercase letter, one lowercase letter and one number.' }),
         email: Joi.string().min(5).max(255).required().email(),
         role: Joi.string().valid('user', 'writer', 'admin').required()
     })
     return schema.validate(user)
 }
 
-const User = mongoose.model('User', userSchema)
+userSchema.virtual('confirmPassword')
+    .get(() => this._confirmPassword)
+    .set(value => this._confirmPassword = value)
 
-userBody = {
+userSchema.pre('validate', function (next) {
+    if (this.password !== this.confirmPassword) {
+        this.invalidate('confirmPassword', 'Las contraseñas no coinciden');
+    }
+    next();
+})
+const userBody = {
     username: 'Eternialis',
-    password: '123454667eD',
+    password: '16fdJfdfdf7',
     role: 'user',
     email: 'hardmeierlua@gmail.com'
 }
-const { error } = validateUser(userBody);
-if (error) console.log(error)
-else {
-    const user = new User(userBody)
-    console.log(user)
-}
+
+console.log(validateUser(userBody).error)
 
 exports.User = mongoose.model('User', userSchema)
 exports.validateUser = validateUser
