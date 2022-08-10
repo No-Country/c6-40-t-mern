@@ -15,7 +15,7 @@ export const Layout = ({ children }) => (
   <div css={css`
   display: flex;
   flex-direction: column;
-  min-height: 150vh;
+  min-height: 100vh;
   justify-content: space-between;
 `}>
     <Navbar>
