@@ -3,6 +3,9 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { ButtonNavar } from "./ButtonNavar";
 import { UserButton } from "./UserButton";
 import { MobileButton } from "./MobileBotton";
+import { GoHome as Home } from "react-icons/go";
+import { MdPublic as Public } from "react-icons/md";
+import { AiOutlineEdit as Edit } from "react-icons/ai";
 
 export const Navbar = ({ children }) => {
     return (
@@ -18,12 +21,22 @@ export const Navbar = ({ children }) => {
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">
-                                            <a href="/">Logo</a>
+                                            <img src="..." className="text-white" alt="Logo" />
                                         </div>
                                         <div className="hidden md:block">
-                                            <div className="flex items-center  ">
-                                                <ButtonNavar href="/">Home</ButtonNavar>
-                                                <ButtonNavar href="/prueba">Prueba</ButtonNavar>
+                                            <div className="flex items-center">
+                                                <ButtonNavar href="/">
+                                                    <Home />
+                                                    <span>Home</span>
+                                                </ButtonNavar>
+                                                <ButtonNavar href="/publicaciones">
+                                                    <Public />
+                                                    <span>Publicaciones</span>
+                                                </ButtonNavar>
+                                                <ButtonNavar href="/form">
+                                                    <Edit />
+                                                    <span>Publicar</span>
+                                                </ButtonNavar>
                                             </div>
                                         </div>
                                     </div>
@@ -49,12 +62,24 @@ export const Navbar = ({ children }) => {
                                 </div>
                             </div>
                             <Disclosure.Panel className="md:hidden">
-                                <div className=" px-1">
+                                <div className="px-1">
                                     <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
-                                        <ButtonNavar href="/">Home</ButtonNavar>
+                                        <ButtonNavar href="/">
+                                            <Home />
+                                            Home
+                                        </ButtonNavar>
                                     </Disclosure.Button>
                                     <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
-                                        <ButtonNavar href="/prueba">Prueba</ButtonNavar>
+                                        <ButtonNavar href="/publicaciones">
+                                            <Public />
+                                            Publicaciones
+                                        </ButtonNavar>
+                                    </Disclosure.Button>
+                                    <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
+                                        <ButtonNavar href="/form">
+                                            <Edit />
+                                            Publicar
+                                        </ButtonNavar>
                                     </Disclosure.Button>
                                 </div>
                                 <MobileButton />
