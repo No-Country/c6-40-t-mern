@@ -10,7 +10,7 @@ const categorySchema = new Schema({
         maxlength: 50,
         unique: true
     }
-})
+}, { timestamps: true, versionKey: false })
 
 const validateCategory = (category) => {
     const schema = Joi.object({
