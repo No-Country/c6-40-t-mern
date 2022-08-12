@@ -1,7 +1,7 @@
 const Prueba = () => {
   return (
     <div>
-      <p className="mt-20">Pagina prueba...........</p>
+      <p className="mt-20">Publicaciones...........</p>
     </div>
   );
 };
