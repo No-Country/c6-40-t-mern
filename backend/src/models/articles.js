@@ -22,8 +22,8 @@ const imageSchema = mongoose.Schema({
         required: true
     },
     buffer: {
-        data: Buffer,
-        contentType: String
+        type: Buffer,
+        required: true
     },
     size: {
         type: Number,
@@ -67,16 +67,16 @@ const articleSchema = new Schema({
 const validateArticle = (article) => {
     const schema = Joi.object({
         title: Joi.string().min(6).max(50).required(),
-        user_id: Joi.string().regex(reUserId).required().messages({ 'string.pattern.base': 'Invalid user_id: It must have an UUID format' }),
+        user_id: Joi.string().regex(reUserId).required().messages({ 'string.pattern.base': 'Invalid user_id: It must have an MongoDB ObjectID format' }),
         content: Joi.string().required(),
-        img: Joi.object({
-            fieldname: Joi.string().required(),
-            originalname: Joi.string().required(),
-            encoding: Joi.string().required(),
-            mimetype: Joi.string().required(),
-            buffer: Joi.string().required(),
-            size: Joi.number().required()
-        }).required(),
+        // img: Joi.object({
+        //     fieldname: Joi.string().required(),
+        //     originalname: Joi.string().required(),
+        //     encoding: Joi.string().required(),
+        //     mimetype: Joi.string().required(),
+        //     buffer: Joi.string().required(),
+        //     size: Joi.number().required()
+        // }).required(),
         tags: Joi.array().required()
     })
     return schema.validate(article)

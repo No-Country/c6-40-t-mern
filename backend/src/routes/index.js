@@ -11,6 +11,6 @@ router.get('/', (req, res) => {
 })
 
 router.post('/user', createUserController.createUserController)
-router.post('/article', articleValidation, imgHandler, createArticleController)
+router.post('/article', imgHandler, articleValidation, createArticleController)
 
 module.exports = router;
