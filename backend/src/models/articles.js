@@ -4,6 +4,33 @@ const { Schema } = mongoose
 
 const reUserId = /^[0-9a-fA-F]{24}$/
 
+const imageSchema = mongoose.Schema({
+    fieldname: {
+        type: String,
+        required: true
+    },
+    originalname: {
+        type: String,
+        required: true
+    },
+    encoding: {
+        type: String,
+        required: true
+    },
+    mimetype: {
+        type: String,
+        required: true
+    },
+    buffer: {
+        data: Buffer,
+        contentType: String
+    },
+    size: {
+        type: Number,
+        required: true
+    },
+})
+
 const articleSchema = new Schema({
     title: {
         type: String,
@@ -20,8 +47,8 @@ const articleSchema = new Schema({
         required: true
     },
     img: {
-        data: Buffer,
-        contentType: String
+        type: imageSchema,
+        required: true
     },
     tags: {
         type: [String],
@@ -40,13 +67,20 @@ const articleSchema = new Schema({
 const validateArticle = (article) => {
     const schema = Joi.object({
         title: Joi.string().min(6).max(50).required(),
-        user_id: Joi.string().regex(reUserId).required().messages({ 'string.pattern.base': 'Invalid password: It must container at least  one uppercase letter, one lowercase letter and one number.' }),
+        user_id: Joi.string().regex(reUserId).required().messages({ 'string.pattern.base': 'Invalid user_id: It must have an UUID format' }),
         content: Joi.string().required(),
-        img: Joi.string().required(),
+        img: Joi.object({
+            fieldname: Joi.string().required(),
+            originalname: Joi.string().required(),
+            encoding: Joi.string().required(),
+            mimetype: Joi.string().required(),
+            buffer: Joi.string().required(),
+            size: Joi.number().required()
+        }).required(),
         tags: Joi.array().required()
     })
     return schema.validate(article)
 }
 
-exports.Article = mongoose.model('User', articleSchema)
-exports.validateUser = validateArticle
+exports.Article = mongoose.model('Article', articleSchema)
+exports.validateArticle = validateArticle

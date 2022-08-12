@@ -1,10 +1,9 @@
 const express = require('express');
 const router = require('./src/routes/index')
-
 const app = express();
 
 
-app.use( express.json(), express.urlencoded({ extended: true }) );
+app.use(express.json(), express.urlencoded({ extended: true }));
 
 require("./src/config/mongoose.config")
 

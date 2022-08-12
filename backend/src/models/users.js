@@ -53,7 +53,6 @@ const validateUser = (user) => {
     })
     return schema.validate(user)
 }
-
 userSchema.virtual('confirmPassword')
     .get(() => this._confirmPassword)
     .set(value => this._confirmPassword = value)
@@ -64,14 +63,6 @@ userSchema.pre('validate', function (next) {
     }
     next();
 })
-const userBody = {
-    username: 'Eternialis',
-    password: '16fdJfdfdf7',
-    role: 'user',
-    email: 'hardmeierlua@gmail.com'
-}
-
-console.log(validateUser(userBody).error)
 
 exports.User = mongoose.model('User', userSchema)
 exports.validateUser = validateUser

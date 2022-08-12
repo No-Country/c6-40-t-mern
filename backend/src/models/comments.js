@@ -16,7 +16,7 @@ const commentSchema = new Schema({
 
 const validateComment = (category) => {
     const schema = Joi.object({
-        user_id: Joi.string().regex(reUserId).required().messages({ 'string.pattern.base': 'Invalid password: It must container at least  one uppercase letter, one lowercase letter and one number.' }),
+        user_id: Joi.string().regex(reUserId).required().messages({ 'string.pattern.base': 'Invalid user_id: It must have an UUID format' }),
         content: Joi.string().required()
     })
     return schema.validate(category)
