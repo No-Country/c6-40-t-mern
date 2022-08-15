@@ -1,11 +1,16 @@
 import { Disclosure } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { ButtonNavar } from "./ButtonNavar";
 import { UserButton } from "./UserButton";
 import { MobileButton } from "./MobileBotton";
 import { GoHome as Home } from "react-icons/go";
 import { MdPublic as Public } from "react-icons/md";
 import { AiOutlineEdit as Edit } from "react-icons/ai";
+import { Button, Menu, MenuButton, MenuList } from "@chakra-ui/react";
+import { MdSportsSoccer as Sport } from "react-icons/md";
+import { AiOutlineGlobal as Global } from "react-icons/ai";
+import { FcConferenceCall as Politica } from "react-icons/fc";
+
 
 export const Navbar = ({ children }) => {
     return (
@@ -29,10 +34,34 @@ export const Navbar = ({ children }) => {
                                                     <Home />
                                                     <span>Home</span>
                                                 </ButtonNavar>
-                                                <ButtonNavar href="/publicaciones">
+                                                <Menu>
+                                                    {({ isOpen }) => (
+                                                        <>
+                                                            <MenuButton isActive={isOpen} as={Button} className="text-white flex items-center gap-2" leftIcon={<Public />}>
+                                                                {isOpen ? 'Categorias' : 'Publicaciones'}
+                                                            </MenuButton>
+                                                            <MenuList className="bg-slate-800 rounded pr-20 pl-2">
+
+                                                                <ButtonNavar href="/deportes">
+                                                                    <Sport />
+                                                                    <span>Deportes</span>
+                                                                </ButtonNavar>
+                                                                <ButtonNavar href="/politica">
+                                                                    <Politica />
+                                                                    <span>Politica</span>
+                                                                </ButtonNavar>
+                                                                <ButtonNavar href="/internacional">
+                                                                    <Global />
+                                                                    <span>Internacional</span>
+                                                                </ButtonNavar>
+                                                            </MenuList>
+                                                        </>
+                                                    )}
+                                                </Menu>
+                                                {/* <ButtonNavar href="/publicaciones">
                                                     <Public />
                                                     <span>Publicaciones</span>
-                                                </ButtonNavar>
+                                                </ButtonNavar> */}
                                                 <ButtonNavar href="/form">
                                                     <Edit />
                                                     <span>Publicar</span>
@@ -70,9 +99,21 @@ export const Navbar = ({ children }) => {
                                         </ButtonNavar>
                                     </Disclosure.Button>
                                     <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
-                                        <ButtonNavar href="/publicaciones">
-                                            <Public />
-                                            Publicaciones
+                                        <ButtonNavar href="/deportes">
+                                            <Sport />
+                                            Deportes
+                                        </ButtonNavar>
+                                    </Disclosure.Button>
+                                    <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
+                                        <ButtonNavar href="/politica">
+                                            <Politica />
+                                            Politica
+                                        </ButtonNavar>
+                                    </Disclosure.Button>
+                                    <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
+                                        <ButtonNavar href="/internacional">
+                                            <Global />
+                                            Internacional
                                         </ButtonNavar>
                                     </Disclosure.Button>
                                     <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">

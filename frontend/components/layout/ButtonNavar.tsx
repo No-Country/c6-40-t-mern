@@ -9,10 +9,9 @@ export const ButtonNavar = ({ children, href }) => {
 
   return (
     <Link href={href}>
-      <a className="hover:bg-gray-700 hover:text-white hover:rounded-lg hover:p-2.4 flex items-center gap-1"
+      <a className="hover:bg-gray-700 hover:text-white hover:rounded-lg hover:p-2.5 p-2.5 flex items-center gap-1"
         css={css`
           color: white;
-          padding: 5px 10px;
           border: none;
           text-decoration: none;
           text-align: center;
