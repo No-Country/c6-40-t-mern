@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const { createArticleController } = require('../controllers/article.controller');
-const articleValidation = require('../middleware/articleValidation');
-const imgHandler = require('../middleware/imgHandler');
 const createUserController = require('./../controllers/user.controller')
 
 router.get('/', (req, res) => {
@@ -11,6 +8,5 @@ router.get('/', (req, res) => {
 })
 
 router.post('/user', createUserController.createUserController)
-router.post('/article', imgHandler, articleValidation, createArticleController)
 
 module.exports = router;

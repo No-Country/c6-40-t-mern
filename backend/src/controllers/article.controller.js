@@ -17,6 +17,33 @@ module.exports.createArticleController = async (req, res) => {
         await article.save()
         res.send(req.body)
     } catch (err) {
-        res.status(500).send('No se ha podido procesar la solicitud, inténtelo más tarde')
+        res.status(500).send(err)
+    }
+}
+
+module.exports.readAllArticlesController = async (req, res) => {
+    const articles = await Article.find({}, "title tags")
+    res.send(articles)
+}
+
+module.exports.readArticleController = async (req, res) => {
+    try {
+        const article = await Article.findById(req.params.id, "-img").exec()
+        if (!article) res.send("No se encontró un archivo con el ID especificado")
+        else res.send(article)
+    } catch (err) {
+        res.send(err)
+    }
+}
+
+module.exports.deleteArticleController = async (req, res) => {
+    try {
+        const article = await Article.findByIdAndDelete(req.params.id)
+        if (!article) res.send("No se encontró un archivo con el ID especificado")
+        else {
+            res.send(article)
+        }
+    } catch (err) {
+        res.send(err)
     }
 }
