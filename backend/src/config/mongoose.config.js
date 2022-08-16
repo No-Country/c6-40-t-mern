@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://localhost:27017/backend-blog', {
+const uri = 'mongodb+srv://kenny:Nl73Cz2gYPYr0FAK@cluster0.iy5hvbg.mongodb.net/blog-noticias'
+
+mongoose.connect(uri , {
   useNewUrlParser: true,
   UseUnifiedTopology: true
 })
