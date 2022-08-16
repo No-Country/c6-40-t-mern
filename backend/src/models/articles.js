@@ -23,7 +23,7 @@ const articleSchema = new Schema({
         maxlength: 50,
         unique: true
     },
-    user_id: {
+    author_id: {
         type: Schema.Types.ObjectId
     },
     content: {

@@ -41,7 +41,7 @@ module.exports.createArticleController = async (req, res) => {
 }
 
 module.exports.readAllArticlesController = async (req, res) => {
-    const articles = await Article.find({}, "title tags")
+    const articles = await Article.find({}, "title tags author_id img")
     res.send(articles)
 }
 
