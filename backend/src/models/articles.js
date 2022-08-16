@@ -5,28 +5,12 @@ const { Schema } = mongoose
 const reUserId = /^[0-9a-fA-F]{24}$/
 
 const imageSchema = mongoose.Schema({
-    fieldname: {
-        type: String,
-        required: true
-    },
-    originalname: {
-        type: String,
-        required: true
-    },
-    encoding: {
+    name: {
         type: String,
         required: true
     },
     mimetype: {
         type: String,
-        required: true
-    },
-    buffer: {
-        type: Buffer,
-        required: true
-    },
-    size: {
-        type: Number,
         required: true
     },
 })
@@ -39,7 +23,7 @@ const articleSchema = new Schema({
         maxlength: 50,
         unique: true
     },
-    user_id: {
+    author_id: {
         type: Schema.Types.ObjectId
     },
     content: {

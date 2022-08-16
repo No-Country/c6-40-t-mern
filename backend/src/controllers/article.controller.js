@@ -1,9 +1,12 @@
+const { PutObjectCommand } = require("@aws-sdk/client-s3");
+const { default: mongoose } = require("mongoose");
 const sharp = require("sharp");
 const { Article } = require("../models/articles");
+const { s3 } = require("../config/aws-s3.config")
 
 module.exports.createArticleController = async (req, res) => {
 
-    const { buffer, ...imgProperties } = req.file
+    const { buffer, originalname, mimetype } = req.file
 
     const resizedBuffer = await sharp(buffer).resize({
         width: 1080,
@@ -11,18 +14,34 @@ module.exports.createArticleController = async (req, res) => {
         fit: 'contain'
     }).toBuffer()
 
-    const article = new Article({ ...req.body, img: { ...imgProperties, buffer: resizedBuffer } })
+    const imgName = `${Date.now()}-${originalname}`
 
+    const command = new PutObjectCommand({
+        Bucket: process.env.BUCKET_NAME,
+        Key: imgName,
+        Body: resizedBuffer,
+        ContentType: mimetype
+    })
+
+    const article = new Article({ ...req.body, img: { name: imgName, mimetype } })
+
+    const session = await mongoose.startSession()
     try {
-        await article.save()
-        res.send(req.body)
+        session.startTransaction()
+        newArticle = await article.save()
+        const img = await s3.send(command)
+        if (img['$metadata'].httpStatusCode !== 200) throw new Error(img)
+        res.send(newArticle)
+        await session.commitTransaction()
     } catch (err) {
         res.status(500).send(err)
+        await session.abortTransaction()
     }
+    session.endSession()
 }
 
 module.exports.readAllArticlesController = async (req, res) => {
-    const articles = await Article.find({}, "title tags")
+    const articles = await Article.find({}, "title tags author_id img")
     res.send(articles)
 }
 
