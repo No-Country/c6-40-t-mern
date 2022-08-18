@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const uri = 'mongodb+srv://kenny:Nl73Cz2gYPYr0FAK@cluster0.iy5hvbg.mongodb.net/blog-noticias'
+const { DB_URI } = process.env
 
-mongoose.connect(uri , {
+mongoose.connect(DB_URI , {
   useNewUrlParser: true,
   UseUnifiedTopology: true
 })
