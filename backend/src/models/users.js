@@ -86,5 +86,6 @@ userSchema.pre('save', function(next){
       });
 });
 
+
 exports.User = mongoose.model('User', userSchema)
 exports.validateUser = validateUser
