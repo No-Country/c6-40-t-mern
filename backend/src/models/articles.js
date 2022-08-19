@@ -20,7 +20,7 @@ const articleSchema = new Schema({
         type: String,
         required: true,
         minlength: 6,
-        maxlength: 50,
+        maxlength: 100,
         unique: true
     },
     author_id: {
@@ -50,7 +50,7 @@ const articleSchema = new Schema({
 
 const validateArticle = (article) => {
     const schema = Joi.object({
-        title: Joi.string().min(6).max(50).required(),
+        title: Joi.string().min(6).max(100).required(),
         user_id: Joi.string().regex(reUserId).required().messages({ 'string.pattern.base': 'Invalid user_id: It must have an MongoDB ObjectID format' }),
         content: Joi.string().required(),
         // img: Joi.object({
