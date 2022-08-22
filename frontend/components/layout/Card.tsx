@@ -2,10 +2,26 @@ import { MdFavoriteBorder as Favorite } from "react-icons/md";
 import { MdDeleteSweep as Dele } from "react-icons/md";
 import { FiEdit as Edi } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Publicaciones } from "../../hooks/publicaionesUser";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { AiFillCheckCircle as CheckIcon } from "react-icons/ai";
+import { TiDeleteOutline as Delet } from "react-icons/ti";
 
-export const Card = () => {
+interface PublicacionesCardProps {
+    publicaciones: Publicaciones;
+    showDetail?: boolean;
+    onDelete: (product_id: string) => void;
+  }
 
+export const Card: React.FC<PublicacionesCardProps> = ({
+    publicaciones,
+    showDetail = false,
+    onDelete,
+  }) => {
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const { user } = useAuth0();
+    const router = useRouter();
 
     return (
         <div className="flex flex-col rounded shadow-xl max-w-sm">
@@ -21,10 +37,10 @@ export const Card = () => {
                 <div className="flex-1">
                     <a href="#" className="block">
                         <h3 className="mt-2 text-xl leading-7 font-semibold text-gray-900">
-                            The best tips & tricks for hiking in the forest
+                            {publicaciones.title}
                         </h3>
                         <p className="mt-3 text-base leading-6 text-gray-500">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo maiores reprehenderit fuga, ipsa id ipsum esse quam aperiam laboriosam numquam?
+                        {publicaciones.content}
                         </p>
                     </a>
                 </div>
@@ -44,7 +60,32 @@ export const Card = () => {
                     </a>
                     {user && (<>
                     <button className="text-yellow-600 hover:bg-yellow-200 font-montserrat py-2 px-8 font-medium rounded-xl transition-all duration-300"> <Edi size={20} /> </button>
-                    <button className="text-red-600 hover:bg-red-200 font-montserrat py-2 px-8 font-medium rounded-xl transition-all duration-300"> <Dele size={20} /> </button>
+                    <button 
+                    disabled={isSubmitted}
+                    onClick={() => {
+                      setIsSubmitted(true);
+                      setTimeout(() => {
+                        onDelete(publicaciones._id);
+                        router.push("/deportes");
+                      }, 2000);
+                    
+                    }}
+                    className={`p-1.5 rounded-md flex gap-1 items-center text-white cursor-pointer mt-7 ${
+                        isSubmitted
+                          ? "bg-red-900 from-green-400 to-green-700"
+                          : "bg-red-500 hover:bg-red-600 hover:text-black hover:shadow-md hover:shadow-red-600 "
+                      }`}
+                    >
+                      {!isSubmitted && (
+                        <>
+                          <Delet /> Delete Product{" "}
+                        </>
+                      )}
+                      {isSubmitted && (
+                        <>
+                          <CheckIcon /> Product delete
+                        </>
+                      )}{" "} <Dele size={20} /> </button>
                     </>)}
                 </div>
                 <div className="mt-6 flex items-center">
