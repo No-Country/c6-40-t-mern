@@ -3,6 +3,7 @@ import { MdSportsSoccer as Sport } from "react-icons/md";
 import { publicacionesUser } from "../hooks/publicaionesUser";
 import { useAuth0 } from "@auth0/auth0-react";
 import { delete_publicacion } from "../lib/publicaciones.repo";
+import { ThreeDots } from "react-loader-spinner";
 
 const Deportes = () => {
   const { data: publicaciones, mutate } = publicacionesUser();
@@ -15,7 +16,7 @@ const Deportes = () => {
         <Sport />
       </h3>
       <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-        {!publicaciones && <p>loading....</p>}
+        {!publicaciones && <div><ThreeDots  color="#9c6419" height={120} width={120} /></div> }
         {publicaciones && publicaciones.map((publicacion)=>
 
         <Card
