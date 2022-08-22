@@ -1,38 +1,24 @@
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner")
-const { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
+const { GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { default: mongoose } = require("mongoose");
-const sharp = require("sharp");
 const { Article } = require("../models/articles");
-const { s3 } = require("../config/aws-s3.config")
+const { s3 } = require("../config/aws-s3.config");
+const { imgUploadConfig } = require("../utils/imgUploadConfig");
 
 const { BUCKET_NAME } = process.env
 
 module.exports.createArticleController = async (req, res) => {
 
-    const { buffer, originalname, mimetype } = req.file
+    const { command, img } = imgUploadConfig(req.file)
 
-    const resizedBuffer = await sharp(buffer).resize({
-        width: 1920,
-        height: 1080
-    }).toBuffer()
-
-    const imgName = `${Date.now()}-${originalname}`
-
-    const command = new PutObjectCommand({
-        Bucket: BUCKET_NAME,
-        Key: imgName,
-        Body: resizedBuffer,
-        ContentType: mimetype
-    })
-
-    const article = new Article({ ...req.body, img: { name: imgName, mimetype } })
+    const article = new Article({ ...req.body, img })
 
     const session = await mongoose.startSession()
     try {
         session.startTransaction()
-        newArticle = await article.save()
-        const img = await s3.send(command)
-        if (img['$metadata'].httpStatusCode !== 200) throw new Error(img)
+        const newArticle = await article.save()
+        const imgUpload = await s3.send(command)
+        if (imgUpload['$metadata'].httpStatusCode !== 200) throw new Error(imgUpload)
         res.send(newArticle)
         await session.commitTransaction()
     } catch (err) {
@@ -69,26 +55,33 @@ module.exports.readArticleController = async (req, res) => {
 }
 
 module.exports.updateArticleController = async (req, res) => {
-    // const session = await mongoose.startSession()
-    // try {
-    //     session.startTransaction()
-    //     const article = await Article.findByIdAndDelete(req.params.id)
-    //     if (!article) res.send("No se encontró un archivo con el ID especificado")
-    //     else {
-    //         const command = new DeleteObjectCommand({
-    //             Bucket: BUCKET_NAME,
-    //             Key: article.img.name
-    //         })
-    //         const imgDeleted = await s3.send(command)
-    //         if (imgDeleted['$metadata'].httpStatusCode !== 204) throw new Error(imgDeleted)
-    //         res.send(article)
-    //     }
-    //     await session.commitTransaction()
-    // } catch (err) {
-    //     res.send(err)
-    //     await session.abortTransaction()
-    // }
-    // session.endSession()
+
+    const { command: uploadCommand, img } = await imgUploadConfig(req.file)
+
+    const session = await mongoose.startSession()
+    try {
+        session.startTransaction()
+        const article = await Article.findByIdAndUpdate(req.params.id, { ...req.body, img })
+        if (!article) res.status(400).send("No se encontró un archivo con el ID especificado")
+        else {
+            const deleteCommand = new DeleteObjectCommand({
+                Bucket: BUCKET_NAME,
+                Key: article.img.name
+            })
+            const imgDeleted = await s3.send(deleteCommand)
+            if (imgDeleted['$metadata'].httpStatusCode !== 204) throw new Error(imgDeleted)
+
+            const imgUpload = await s3.send(uploadCommand)
+            if (imgUpload['$metadata'].httpStatusCode !== 200) throw new Error(imgUpload)
+
+            res.send(newArticle)
+        }
+        await session.commitTransaction()
+    } catch (err) {
+        res.send(err)
+        await session.abortTransaction()
+    }
+    session.endSession()
 }
 
 module.exports.deleteArticleController = async (req, res) => {
@@ -96,7 +89,7 @@ module.exports.deleteArticleController = async (req, res) => {
     try {
         session.startTransaction()
         const article = await Article.findByIdAndDelete(req.params.id)
-        if (!article) res.send("No se encontró un archivo con el ID especificado")
+        if (!article) res.status(400).send("No se encontró un archivo con el ID especificado")
         else {
             const command = new DeleteObjectCommand({
                 Bucket: BUCKET_NAME,
@@ -108,7 +101,7 @@ module.exports.deleteArticleController = async (req, res) => {
         }
         await session.commitTransaction()
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
         await session.abortTransaction()
     }
     session.endSession()
