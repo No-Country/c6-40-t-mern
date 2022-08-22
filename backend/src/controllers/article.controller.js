@@ -68,6 +68,29 @@ module.exports.readArticleController = async (req, res) => {
     }
 }
 
+module.exports.updateArticleController = async (req, res) => {
+    // const session = await mongoose.startSession()
+    // try {
+    //     session.startTransaction()
+    //     const article = await Article.findByIdAndDelete(req.params.id)
+    //     if (!article) res.send("No se encontró un archivo con el ID especificado")
+    //     else {
+    //         const command = new DeleteObjectCommand({
+    //             Bucket: BUCKET_NAME,
+    //             Key: article.img.name
+    //         })
+    //         const imgDeleted = await s3.send(command)
+    //         if (imgDeleted['$metadata'].httpStatusCode !== 204) throw new Error(imgDeleted)
+    //         res.send(article)
+    //     }
+    //     await session.commitTransaction()
+    // } catch (err) {
+    //     res.send(err)
+    //     await session.abortTransaction()
+    // }
+    // session.endSession()
+}
+
 module.exports.deleteArticleController = async (req, res) => {
     const session = await mongoose.startSession()
     try {

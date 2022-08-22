@@ -4,9 +4,13 @@ require('dotenv').config()
 const user = require('./src/routes/user')
 const articles = require('./src/routes/article')
 const app = express();
+
 const listEndpoints = require('express-list-endpoints')
 
-app.use(express.json(), express.urlencoded({ extended: true }));
+app.use(
+  express.json(),
+  express.urlencoded({ extended: true }),
+)
 
 //Permitir accesar desde un origen distinto
 app.use(
