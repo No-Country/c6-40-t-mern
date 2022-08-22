@@ -21,6 +21,8 @@ export const Card: React.FC<PublicacionesCardProps> = ({
 }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const { user } = useAuth0();
+    console.log(user);
+    
     const router = useRouter();
 
     return (
@@ -31,7 +33,7 @@ export const Card: React.FC<PublicacionesCardProps> = ({
                 </button>
             </div>
             <div className="flex-shrink-0">
-                <img className="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1588453905571-300bb8aa0ffd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60" alt="Person hiking in the woods" />
+                <img className="h-48 w-full object-cover" src={publicaciones.img.url} alt={publicaciones.img.name} />
             </div>
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                 <div className="flex-1">

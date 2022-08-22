@@ -5,7 +5,7 @@ export interface PublicacionesPostData {
     title?: string;
     author?: string;
     content?: string;
-    img?: object;
+    img?: {url: string , name:string};
     favorites?:number;
     tag?: [];
     comments?:[];
@@ -14,7 +14,7 @@ export interface PublicacionesPostData {
 
 
 export const create_publicacion = async (data: PublicacionesPostData, token: string) => {
-  const res = await publicaciones_api.post("/api/v1/article", data, {
+  const res = await publicaciones_api.post("/api/v1/article/all", data, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
