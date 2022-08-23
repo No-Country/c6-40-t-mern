@@ -7,7 +7,7 @@ const { imgUploadConfig } = require("../utils/imgUploadConfig");
 
 const { BUCKET_NAME } = process.env
 
-module.exports.createArticleController = async (req, res) => {
+module.exports.createArticle = async (req, res) => {
 
     const { command, img } = imgUploadConfig(req.file)
 
@@ -28,8 +28,8 @@ module.exports.createArticleController = async (req, res) => {
     session.endSession()
 }
 
-module.exports.readAllArticlesController = async (req, res) => {
-    const articles = await Article.find({}, "title tags author_id img").lean()
+module.exports.readAllArticles = async (req, res) => {
+    const articles = await Article.find({}, "title tags author_id img resume").lean()
 
     for (let article of articles) {
         const command = new GetObjectCommand({
@@ -38,13 +38,12 @@ module.exports.readAllArticlesController = async (req, res) => {
         })
         const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
         article.img.url = url
-        console.log(article)
     }
 
     res.send(articles)
 }
 
-module.exports.readArticleController = async (req, res) => {
+module.exports.readArticle = async (req, res) => {
     try {
         const article = await Article.findById(req.params.id, "-img").exec()
         if (!article) res.send("No se encontró un archivo con el ID especificado")
@@ -54,7 +53,7 @@ module.exports.readArticleController = async (req, res) => {
     }
 }
 
-module.exports.updateArticleController = async (req, res) => {
+module.exports.updateArticle = async (req, res) => {
 
     const { command: uploadCommand, img } = await imgUploadConfig(req.file)
 
@@ -84,7 +83,7 @@ module.exports.updateArticleController = async (req, res) => {
     session.endSession()
 }
 
-module.exports.deleteArticleController = async (req, res) => {
+module.exports.deleteArticle = async (req, res) => {
     const session = await mongoose.startSession()
     try {
         session.startTransaction()
