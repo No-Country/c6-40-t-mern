@@ -12,14 +12,14 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minlength: 3,
-    maxlength: 50,
+    maxlength: 50
   },
   password: {
     type: String,
     required: true,
     minlength: 6,
     maxlength: 1024,
-    validate: [validatePassword, "Invalid password: It must container at least  one uppercase letter, one lowercase letter and one number."]
+    validate: [validatePassword, 'Invalid password: It must container at least  one uppercase letter, one lowercase letter and one number.']
   },
   email: {
     type: String,
@@ -33,7 +33,7 @@ const userSchema = new Schema({
     enum: ['user', 'writer', 'admin'],
     default: 'user'
   },
-  favorites: { 
+  favorites: {
     type: [Schema.Types.ObjectId],
     default: []
   },
@@ -46,6 +46,13 @@ const userSchema = new Schema({
   }
 }, { timestamps: true, versionKey: false })
 
+userSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id
+    delete returnedObject._id
+  }
+})
+
 const validateUser = (user) => {
   const schema = Joi.object({
     username: Joi.string().min(6).max(50).required(),
@@ -57,35 +64,36 @@ const validateUser = (user) => {
 }
 userSchema.virtual('confirmPassword')
   .get(() => this._confirmPassword)
-  .set(value => this._confirmPassword = value)
+  .set(value => {
+    this._confirmPassword = value
+  })
 
 userSchema.pre('validate', function (next) {
   if (this.password !== this.confirmPassword) {
-    this.invalidate('confirmPassword', 'Las contraseñas no coinciden');
+    this.invalidate('confirmPassword', 'Las contraseñas no coinciden')
   }
-  next();
+  next()
 })
 
-userSchema.pre("save", function(next) {
-  mongoose.models["User"].findOne({email : this.email},function(err, results) {
-      if(err) {
-          console.log(err)
-      } else if(results) { //there was a result found, so the email address exists
-          console.error("email must be unique");
-      } 
-      next()
-  });
-});
+userSchema.pre('save', function (next) {
+  mongoose.models.User.findOne({ email: this.email }, function (err, results) {
+    if (err) {
+      console.log(err)
+    } else if (results) { // there was a result found, so the email address exists
+      console.error('email must be unique')
+    }
+    next()
+  })
+})
 
-//Antes de guardar usuario, encriptamos contraseña
-userSchema.pre('save', function(next){
+// Antes de guardar usuario, encriptamos contraseña
+userSchema.pre('save', function (next) {
   bcrypt.hash(this.password, 10)
-      .then(hash => {
-          this.password = hash;
-          next();
-      });
-});
-
+    .then(hash => {
+      this.password = hash
+      next()
+    })
+})
 
 exports.User = mongoose.model('User', userSchema)
 exports.validateUser = validateUser
