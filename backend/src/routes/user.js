@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 const { createUserController, getUserById, deleteUserById, updateUserById } = require('../controllers/user.controller')
 
@@ -11,5 +11,4 @@ router.get('/:id', getUserById)
 router.put('/:id', checkJwt, updateUserById)
 router.delete('/:id', checkJwt, deleteUserById)
 
-
-module.exports = router;
+module.exports = router

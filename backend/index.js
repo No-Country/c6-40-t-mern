@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
 
@@ -24,8 +24,7 @@ app.use(
   })
 )
 
-
-require("./src/config/mongoose.config")
+require('./src/config/mongoose.config')
 
 app.use('/api/v1/user', user)
 app.use('/api/v1/article', articles)

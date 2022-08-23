@@ -18,5 +18,4 @@ router.get('/:id', readArticle)
 router.put('/:id', checkJwt, canEditArticles, updateArticle)
 router.delete('/:id', checkJwt, canDeleteArticles, deleteArticle)
 
-
 module.exports = router

@@ -5,14 +5,14 @@ const { Schema } = mongoose
 const categories = ['a']
 
 const imageSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    mimetype: {
-        type: String,
-        required: true
-    },
+  name: {
+    type: String,
+    required: true
+  },
+  mimetype: {
+    type: String,
+    required: true
+  }
 })
 
 const articleSchema = new Schema({

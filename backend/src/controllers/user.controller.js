@@ -1,7 +1,7 @@
-const { User } = require("../models/users");
+const { User } = require('../models/users')
 
 module.exports.createUserController = (req, res) => {
-  const user = new User(req.body);
+  const user = new User(req.body)
 
   user.save()
     .then(user => {
