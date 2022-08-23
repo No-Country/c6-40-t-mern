@@ -5,7 +5,6 @@ const { createUserController, getUserById, deleteUserById, updateUserById } = re
 
 const { checkJwt } = require('../config/auth0.config')
 
-
 router.post('/', checkJwt, createUserController)
 router.get('/:id', getUserById)
 router.put('/:id', checkJwt, updateUserById)

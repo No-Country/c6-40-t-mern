@@ -46,6 +46,13 @@ const userSchema = new Schema({
   }
 }, { timestamps: true, versionKey: false })
 
+userSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id
+    delete returnedObject._id
+  }
+})
+
 const validateUser = (user) => {
   const schema = Joi.object({
     username: Joi.string().min(6).max(50).required(),
