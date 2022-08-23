@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors')
 require('dotenv').config()
+
 const user = require('./src/routes/user')
 const articles = require('./src/routes/article')
 const category = require('./src/routes/category')
+
 const app = express();
 
 const listEndpoints = require('express-list-endpoints')
