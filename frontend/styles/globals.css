@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.ql-toolbar{
+    border: none !important;
+}
+
+.ql-container{
+    border: none !important;
+    height: 300px !important;
+}
+
