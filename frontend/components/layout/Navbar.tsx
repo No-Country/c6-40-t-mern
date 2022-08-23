@@ -10,6 +10,8 @@ import { Button, Menu, MenuButton, MenuList } from "@chakra-ui/react";
 import { MdSportsSoccer as Sport } from "react-icons/md";
 import { AiOutlineGlobal as Global } from "react-icons/ai";
 import { FcConferenceCall as Politica } from "react-icons/fc";
+import Image from "next/image";
+import logo from "../../public/images/noticias.png";
 
 
 export const Navbar = ({ children }) => {
@@ -26,7 +28,7 @@ export const Navbar = ({ children }) => {
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">
-                                            <img src="..." className="text-white" alt="Logo" />
+                                        <Image src={logo} alt="logo" height={50} width={50} />
                                         </div>
                                         <div className="hidden md:block">
                                             <div className="flex items-center">
