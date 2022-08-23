@@ -1,0 +1,13 @@
+GET http://localhost:5000/api/v1
+
+### NEW USER
+POST http://localhost:5000/api/v1/user
+content-type: application/json
+
+{
+  "username": "kenny",
+	"password": "RGfGDj&/($%GH1",
+	"confirmPassword": "RGfGDj&/($%GH1",
+	"email": "k@cd.com"
+}
+
