@@ -4,49 +4,41 @@ const { Schema } = mongoose
 
 const categories = ['a']
 
-const imageSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  mimetype: {
-    type: String,
-    required: true
-  }
-})
+// const imageSchema = mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true
+//   },
+//   mimetype: {
+//     type: String,
+//     required: true
+//   }
+// })
 
 const articleSchema = new Schema({
   title: {
     type: String,
-    required: true,
     minlength: 6,
     maxlength: 100,
     unique: true
   },
   author_id: {
-    type: String,
-    required: true
+    type: String
   },
   resume: {
-    type: String,
-    required: true
+    type: String
   },
   content: {
-    type: String,
-    required: true
+    type: String
   },
   img: {
-    type: imageSchema,
-    required: true
   },
   category: {
     type: String,
-    required: true,
     enum: categories
   },
   tags: {
-    type: [String],
-    required: true
+    type: [String]
   },
   favorites: {
     type: Number,

@@ -3,19 +3,19 @@ const cors = require('cors')
 require('dotenv').config()
 const app = express()
 
-// const Sentry = require('@sentry/node')
-// const Tracing = require('@sentry/tracing')
+const Sentry = require('@sentry/node')
+const Tracing = require('@sentry/tracing')
 
-// Sentry.init({
-//   dsn: 'https://ee0f3e6de9e04fb789cd1825c6d42bd9@o1374728.ingest.sentry.io/6682196',
-//   integrations: [
-//     new Sentry.Integrations.Http({ tracing: true }),
-//     new Tracing.Integrations.Express({ app })
-//   ],
-//   tracesSampleRate: 1.0
-// })
-// app.use(Sentry.Handlers.requestHandler())
-// app.use(Sentry.Handlers.tracingHandler())
+Sentry.init({
+  dsn: 'https://ee0f3e6de9e04fb789cd1825c6d42bd9@o1374728.ingest.sentry.io/6682196',
+  integrations: [
+    new Sentry.Integrations.Http({ tracing: true }),
+    new Tracing.Integrations.Express({ app })
+  ],
+  tracesSampleRate: 1.0
+})
+app.use(Sentry.Handlers.requestHandler())
+app.use(Sentry.Handlers.tracingHandler())
 
 // Routes import
 
@@ -52,7 +52,7 @@ app.use('/api/v1/category', category)
 app.use(notFound)
 
 // The error handler must be before any other error middleware and after all controllers
-// app.use(Sentry.Handlers.errorHandler())
+app.use(Sentry.Handlers.errorHandler())
 app.use(handleError)
 
 const port = process.env.PORT

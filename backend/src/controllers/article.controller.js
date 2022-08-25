@@ -7,25 +7,23 @@ const { imgUploadConfig } = require('../utils/imgUploadConfig')
 
 const { BUCKET_NAME } = process.env
 
-module.exports.createArticle = async (req, res) => {
-  const { command, img } = imgUploadConfig(req.file)
+module.exports.createArticle = (req, res) => {
+  // const { command, img } = imgUploadConfig(req.file)
 
-  const article = new Article({ ...req.body, img })
+  // const article = new Article({ ...req.body, img })
+  const article = new Article(req.body)
 
-  const session = await mongoose.startSession()
-  try {
-    session.startTransaction()
-    const newArticle = await article.save()
-    const imgUpload = await s3.send(command)
-    if (imgUpload.$metadata.httpStatusCode !== 200) throw new Error(imgUpload)
-    res.send(newArticle)
-    await session.commitTransaction()
-  } catch (err) {
-    res.status(500).send(err)
-    await session.abortTransaction()
-  }
-  session.endSession()
+  // const session = await mongoose.startSession()
+
+  // session.startTransaction()
+  // const newArticle = await article.save()
+  // const imgUpload = await s3.send(command)
+  // if (imgUpload.$metadata.httpStatusCode !== 200) throw new Error(imgUpload)
+  res.json({ response: article })
+  // await session.commitTransaction()
+  // await session.abortTransaction()
 }
+// session.endSession()
 
 module.exports.readAllArticles = async (req, res) => {
   const articles = await Article.find({}, 'title tags author_id img resume').lean()
