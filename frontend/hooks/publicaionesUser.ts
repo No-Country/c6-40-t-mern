@@ -4,19 +4,42 @@ import useSWR from "swr";
 
 export interface Publicaciones{
     _id?: string;
-    title?: string;
-    author?: string;
-    content?: string;
-    img?:{url: string , name:string};
-    favorites?:number;
-    tag?: [];
-    comments?:[];
-    category?:string;
+    title?: string,
+    author_id?: string,
+    resume?:string,
+    content?:string,
+    img?: {url: string , name:string},
+    category?:string,
+    tags?:[string],
+    favorites?: number,
+    comments?: [string]
   }
   
   
   export const publicacionesUser= () => {
     const swr = useSWR<Publicaciones[]>("/api/v1/article/all", {
+      refreshInterval: 3000,
+    });
+  
+    return swr;
+  };
+
+
+export interface Articulos{
+  _id?: string;
+    title?: string,
+    author_id?: string,
+    resume?:string,
+    content?:string,
+    img?: {url: string , name:string},
+    category?:string,
+    tags?:[string],
+    favorites?: number,
+    comments?: [string]
+}
+
+  export const articuloUser= () => {
+    const swr = useSWR<Articulos[]>("/api/v1/article", {
       refreshInterval: 3000,
     });
   
