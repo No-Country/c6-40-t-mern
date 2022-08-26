@@ -48,6 +48,23 @@ module.exports.readAllArticles = async (req, res, next) => {
   res.send(articles)
 }
 
+module.exports.readArticlesByCategory = async (req, res, next) => {
+
+  const articles = await Article.find({ category: req.params.category }, '_id title tags author_id img resume').lean()
+
+  for (const article of articles) {
+    const command = new GetObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: article.img.name
+    })
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
+    article.img.url = url
+  }
+
+  res.send(articles.length === 0 ? 'No hay artículos disponibles para esa categoría' : articles)
+}
+
+
 module.exports.readArticle = async (req, res, next) => {
   try {
     const article = await Article.findById(req.params.id, '-img').exec()
@@ -59,17 +76,16 @@ module.exports.readArticle = async (req, res, next) => {
 }
 
 module.exports.updateArticle = async (req, res, next) => {
-  const { command: uploadCommand, img } = await imgUploadConfig(req.file)
 
   const session = await mongoose.startSession()
   try {
     session.startTransaction()
-    const article = await Article.findByIdAndUpdate(req.params.id, { ...req.body, img })
-    if (!article) res.status(400).send('No se encontró un archivo con el ID especificado')
-    else {
+    const newData = req.body
+    if (req.file) {
+      const { command: uploadCommand, img } = await imgUploadConfig(req.file)
       const deleteCommand = new DeleteObjectCommand({
         Bucket: BUCKET_NAME,
-        Key: article.img.name
+        Key: img.name
       })
       const imgDeleted = await s3.send(deleteCommand)
       if (imgDeleted.$metadata.httpStatusCode !== 204) throw new Error(imgDeleted)
@@ -77,15 +93,18 @@ module.exports.updateArticle = async (req, res, next) => {
       const imgUpload = await s3.send(uploadCommand)
       if (imgUpload.$metadata.httpStatusCode !== 200) throw new Error(imgUpload)
 
-      res.send(article)
+      newData.img = img
     }
+
+    const article = await Article.findByIdAndUpdate(req.params.id, newData)
+    if (!article) res.status(400).send('No se encontró un archivo con el ID especificado')
+    res.send(article)
     await session.commitTransaction()
-    session.endSession()
   } catch (err) {
-    await session.abortTransaction()
-    session.endSession()
     next(err)
+    await session.abortTransaction()
   }
+  session.endSession()
 }
 
 module.exports.deleteArticle = async (req, res, next) => {
@@ -104,10 +123,9 @@ module.exports.deleteArticle = async (req, res, next) => {
       res.send(article)
     }
     await session.commitTransaction()
-    session.endSession()
   } catch (err) {
-    await session.abortTransaction()
-    session.endSession()
     next(err)
+    await session.abortTransaction()
   }
+  session.endSession()
 }

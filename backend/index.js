@@ -1,4 +1,6 @@
 const express = require('express')
+const formData = require("express-form-data")
+const os = require("os")
 const cors = require('cors')
 require('dotenv').config()
 const app = express()
@@ -28,11 +30,6 @@ const handleError = require('./src/middleware/handleError')
 
 const listEndpoints = require('express-list-endpoints')
 
-app.use(
-  express.json(),
-  express.urlencoded({ extended: true })
-)
-
 // CORS: Permitir accesar desde un origen distinto
 app.use(
   cors({
@@ -41,6 +38,12 @@ app.use(
     credentials: true
   })
 )
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(formData.parse({
+  uploadDir: os.tmpdir(),
+  autoClean: true
+}))
 
 require('./src/config/mongoose.config')
 
@@ -49,11 +52,11 @@ app.use('/api/v1/article', articles)
 app.use('/api/v1/category', category)
 
 // Error handling
-app.use(notFound)
+//app.use(notFound)
 
 // The error handler must be before any other error middleware and after all controllers
 // app.use(Sentry.Handlers.errorHandler())
-app.use(handleError)
+//app.use(handleError)
 
 const port = process.env.PORT
 app.listen(port, () => {

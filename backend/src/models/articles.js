@@ -61,13 +61,9 @@ const articleSchema = new Schema({
 const validateArticle = (article) => {
   const schema = Joi.object({
     title: Joi.string().min(6).max(100).required(),
-    user_id: Joi.string().required().messages({ 'string.pattern.base': 'Invalid user_id: It must have an MongoDB ObjectID format' }),
+    user_id: Joi.string().required(),
     resume: Joi.string().required(),
     content: Joi.string().required(),
-    img: Joi.object({
-      name: Joi.string().required(),
-      mimetype: Joi.string().required()
-    }).required(),
     category: Joi.string().valid(...categories).required(),
     tags: Joi.array().required()
   })
