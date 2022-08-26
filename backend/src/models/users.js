@@ -24,7 +24,7 @@ const userSchema = new Schema({
 
 const validateUser = (user) => {
   const schema = Joi.object({
-    id: Joi.string().required(),
+    id: Joi.string().required()
   })
   return schema.validate(user)
 }

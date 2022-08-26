@@ -9,8 +9,6 @@ const imgHandler = require('../middleware/imgHandler')
 const canCreateArticles = requiredScopes('create:publicaciones')
 const canEditArticles = requiredScopes('edit:publicaciones')
 const canDeleteArticles = requiredScopes('delete:publicaciones')
-// const canDeleteComments = requiredScopes('delete:comentarios')
-// const isUser = requiredScopes('rol:user')
 
 router.post('/', checkJwt, canCreateArticles, articleValidation, imgHandler, createArticle)
 router.get('/all', readAllArticles)
