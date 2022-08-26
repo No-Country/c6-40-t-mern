@@ -9,8 +9,6 @@ const { createArticle, readArticle, readAllArticles, deleteArticle, updateArticl
 // const canCreateArticles = requiredScopes('create:publicaciones')
 const canEditArticles = requiredScopes('edit:publicaciones')
 const canDeleteArticles = requiredScopes('delete:publicaciones')
-// const canDeleteComments = requiredScopes('delete:comentarios')
-// const isUser = requiredScopes('rol:user')
 
 router.post('/', createArticle)
 router.get('/all', readAllArticles)

@@ -22,11 +22,12 @@ app.use(Sentry.Handlers.tracingHandler())
 const user = require('./src/routes/user')
 const articles = require('./src/routes/article')
 const category = require('./src/routes/category')
+const comment = require('./src/routes/comment.routes')
 
 const notFound = require('./src/middleware/notFound')
 const handleError = require('./src/middleware/handleError')
 
-const listEndpoints = require('express-list-endpoints')
+// const listEndpoints = require('express-list-endpoints')
 
 app.use(
   express.json(),
@@ -47,6 +48,7 @@ require('./src/config/mongoose.config')
 app.use('/api/v1/user', user)
 app.use('/api/v1/article', articles)
 app.use('/api/v1/category', category)
+app.use('/api/v1/comment', comment)
 
 // Error handling
 app.use(notFound)
@@ -58,5 +60,5 @@ app.use(handleError)
 const port = process.env.PORT
 app.listen(port, () => {
   console.log(`Listening on port ${port}...`)
-  console.log(listEndpoints(app))
+  // console.log(listEndpoints(app))
 })
