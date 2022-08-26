@@ -9,7 +9,7 @@ const { User } = require('../models/users')
 const { BUCKET_NAME } = process.env
 
 module.exports.createArticle = async (req, res, next) => {
-  const { command, img } = imgUploadConfig(req.file)
+  const { command, img } = await imgUploadConfig(req.file)
 
   const article = new Article({ ...req.body, img })
 
@@ -21,15 +21,14 @@ module.exports.createArticle = async (req, res, next) => {
     if (imgUpload.$metadata.httpStatusCode !== 200) throw new Error(imgUpload)
 
     const user = await User.findOneAndUpdate({ id: req.body.user_id }, { $push: { writings: article._id } }, { new: true })
-    if (!user) throw new Error('No se encontró un usuario con el ID especificado')
-
+    if (!user) req.status(403).send('No se encontró un usuario con el ID especificado')
     res.send(newArticle)
     await session.commitTransaction()
     session.endSession()
   } catch (err) {
     await session.abortTransaction()
     session.endSession()
-    next(err)
+    res.send(err)
   }
 }
 

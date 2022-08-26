@@ -2,8 +2,6 @@ const Joi = require('joi')
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const categories = ['a']
-
 const imageSchema = mongoose.Schema({
   name: {
     type: String,
@@ -20,8 +18,7 @@ const articleSchema = new Schema({
     type: String,
     required: true,
     minlength: 6,
-    maxlength: 100,
-    unique: true
+    maxlength: 100
   },
   author_id: {
     type: String,
@@ -41,8 +38,7 @@ const articleSchema = new Schema({
   },
   category: {
     type: String,
-    required: true,
-    enum: categories
+    required: true
   },
   tags: {
     type: [String],
@@ -61,10 +57,10 @@ const articleSchema = new Schema({
 const validateArticle = (article) => {
   const schema = Joi.object({
     title: Joi.string().min(6).max(100).required(),
-    user_id: Joi.string().required(),
+    author_id: Joi.string().required(),
     resume: Joi.string().required(),
     content: Joi.string().required(),
-    category: Joi.string().valid(...categories).required(),
+    category: Joi.string().required(),
     tags: Joi.array().required()
   })
   return schema.validate(article)
