@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineLogin as Login } from "react-icons/ai";
+import Link from "next/link";
 
 export const Button = ({ children, onClick }) => (
   <button
@@ -78,17 +79,19 @@ export const UserButton = () => {
             {show ? (
               <ul className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none mr-7 ">
                 <li>
-                  <a
-                    css={css`
+                  {user && <Link href="/profile">
+                    <a
+                      css={css`
                       -webkit-user-select: none;
                       -ms-user-select: none;
                       user-select: none;
                     `}
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:text-black hover:rounded-lg hover:bg-gray-200"
-                  >
-                    Tu perfil
-                  </a>
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:text-black hover:rounded-lg hover:bg-gray-200"
+                    >
+                      Tu perfil
+                    </a>
+                  </Link>}
                 </li>
                 <li>
                   <a

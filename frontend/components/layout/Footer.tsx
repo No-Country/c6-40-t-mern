@@ -12,12 +12,14 @@ import { Button, Menu, MenuButton, MenuList } from "@chakra-ui/react";
 import { MdSportsSoccer as Sport } from "react-icons/md";
 import { AiOutlineGlobal as Global } from "react-icons/ai";
 import { FcConferenceCall as Politica } from "react-icons/fc";
+import Image from "next/image";
+import logo from "../../public/images/noticias.png";
 
 export const Footer = () => {
     return (
         <div className="bg-slate-800 p-10 flex-col justify-center">
             <div className="flex justify-center items-center">
-                <img src=".." className="text-white" alt="Logo" />
+            <Image src={logo} alt="logo" height={70} width={70} />
             </div>
             <div className="flex flex-col justify-center items-center mt-10 md:flex-row ">
                 <ButtonNavar href="/">
@@ -59,9 +61,9 @@ export const Footer = () => {
                     <span>Publicar</span>
                 </ButtonNavar>
             </div>
-            <div className="flex justify-center items-center mt-10">
+            {/* <div className="flex justify-center items-center mt-10">
                 <img src=".." className="text-white" alt="logo secundario" />
-            </div>
+            </div> */}
             <div className="flex justify-center items-center mt-10 gap-8">
                 <a href="#">
                     <Face style={{ color: "#9c6419", fontSize: "30px" }} />
