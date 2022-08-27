@@ -28,7 +28,7 @@ export const Navbar = ({ children }) => {
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">
-                                        <Image src={logo} alt="logo" height={50} width={50} />
+                                            <Image src={logo} alt="logo" height={50} width={50} />
                                         </div>
                                         <div className="hidden md:block">
                                             <div className="flex items-center">
@@ -44,7 +44,7 @@ export const Navbar = ({ children }) => {
                                                             </MenuButton>
                                                             <MenuList className="bg-slate-800 rounded pr-20 pl-2">
 
-                                                                <ButtonNavar href="/deportes">
+                                                                <ButtonNavar href="/categoria/${category.name}">
                                                                     <Sport />
                                                                     <span>Deportes</span>
                                                                 </ButtonNavar>
