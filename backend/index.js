@@ -46,11 +46,11 @@ app.use('/api/v1/article', articles)
 app.use('/api/v1/category', category)
 
 // Error handling
-app.use(notFound)
+//app.use(notFound)
 
 // The error handler must be before any other error middleware and after all controllers
 // app.use(Sentry.Handlers.errorHandler())
-app.use(handleError)
+//app.use(handleError)
 
 const port = process.env.PORT
 app.listen(port, () => {

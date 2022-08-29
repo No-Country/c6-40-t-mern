@@ -12,7 +12,7 @@ module.exports.createArticle = async (req, res, next) => {
   const { command, img } = await imgUploadConfig(req.file)
 
   const article = new Article({ ...req.body, img })
-
+  console.log(article)
   const session = await mongoose.startSession()
   try {
     session.startTransaction()
