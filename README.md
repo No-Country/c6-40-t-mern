@@ -10,12 +10,19 @@
 <h1>Welcome to Blogg!</h1>
 <p>Welcome to our Social Blog App!</p>
 
-## Installation
+## Descripción del Proyecto
+<p>
+  Descripción del proyecto
+</p>
+
+<!-- ## Installation
 **Clone the Repository**
 ```
 git clone https://github.com/No-Country/c6-40-t-mern
 cd c6-40-t-mern
-```
+``` -->
+
+## Stack / Tecnologías
 
 <h2>FrontEnd</h2>
 
@@ -50,7 +57,18 @@ cd c6-40-t-mern
 2) Run the project
 > npm run dev
 
-<h3>Endpoints</h3>
+## Roles
+
+| Developer | Rol | LinkedIn | GitHub |
+| ------- | ------ | ------ | ------ |
+| Kenny Julián Luque Ticona | Backend | https://www.linkedin.com/in/kennyluquet/ | https://github.com/Kenny2397 |
+
+
+## Link Deploy 
+> API Backend <br>
+[https://c6-40-t-mern-blog.vercel.app/](https://c6-40-t-mern-blog.vercel.app/)
+
+## Endpoints
 
 <h3>Api Comment</h3>
 <h3>Get comment</h3>
