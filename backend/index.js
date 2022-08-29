@@ -24,8 +24,8 @@ const articles = require('./src/routes/article')
 const category = require('./src/routes/category')
 const comment = require('./src/routes/comment.routes')
 
-const notFound = require('./src/middleware/notFound')
-const handleError = require('./src/middleware/handleError')
+// const notFound = require('./src/middleware/notFound')
+// const handleError = require('./src/middleware/handleError')
 
 // const listEndpoints = require('express-list-endpoints')
 
@@ -48,7 +48,7 @@ app.use('/api/v1/category', category)
 app.use('/api/v1/comment', comment)
 
 // Error handling
-//app.use(notFound)
+// app.use(notFound)
 
 // The error handler must be before any other error middleware and after all controllers
 // app.use(Sentry.Handlers.errorHandler())

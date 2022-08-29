@@ -7,7 +7,7 @@ const { createArticle, readArticle, readAllArticles, deleteArticle, updateArticl
 const articleValidation = require('../middleware/articleValidation')
 const imgHandler = require('../middleware/imgHandler')
 const canCreateArticles = requiredScopes('create:publicaciones')
-const canEditArticles = requiredScopes('edit:publicaciones')
+// const canEditArticles = requiredScopes('edit:publicaciones')
 const canDeleteArticles = requiredScopes('delete:publicaciones')
 
 router.post('/', checkJwt, canCreateArticles, imgHandler, articleValidation, createArticle)
