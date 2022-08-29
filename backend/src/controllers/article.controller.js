@@ -9,10 +9,12 @@ const { User } = require('../models/users')
 const { BUCKET_NAME } = process.env
 
 module.exports.createArticle = async (req, res, next) => {
+
   const { command, img } = await imgUploadConfig(req.file)
 
   const article = new Article({ ...req.body, img })
   console.log(article)
+
   const session = await mongoose.startSession()
   try {
     session.startTransaction()
@@ -31,6 +33,7 @@ module.exports.createArticle = async (req, res, next) => {
     res.send(err)
   }
 }
+// session.endSession()
 
 module.exports.readAllArticles = async (req, res, next) => {
   const articles = await Article.find({}, '_id title tags author_id img resume').lean()

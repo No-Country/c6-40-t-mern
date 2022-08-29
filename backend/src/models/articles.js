@@ -16,33 +16,26 @@ const imageSchema = mongoose.Schema({
 const articleSchema = new Schema({
   title: {
     type: String,
-    required: true,
     minlength: 6,
     maxlength: 100
   },
   author_id: {
-    type: String,
-    required: true
+    type: String
   },
   resume: {
-    type: String,
-    required: true
+    type: String
   },
   content: {
-    type: String,
-    required: true
+    type: String
   },
   img: {
-    type: imageSchema,
-    required: true
   },
   category: {
     type: String,
     required: true
   },
   tags: {
-    type: [String],
-    required: true
+    type: [String]
   },
   favorites: {
     type: Number,
