@@ -4,10 +4,29 @@ import { publicacionesUser } from "../hooks/publicaionesUser";
 import { useAuth0 } from "@auth0/auth0-react";
 import { delete_publicacion } from "../lib/publicaciones.repo";
 import { ThreeDots } from "react-loader-spinner";
+import { useEffect, useState } from "react";
 
 const Deportes = () => {
-  const { data: publicaciones, mutate } = publicacionesUser();
+  //const { data: publicaciones, mutate } = publicacionesUser();
   const { getAccessTokenSilently } = useAuth0();
+
+  const [articles, setArticles] = useState([])
+
+  const category = 'espectaculos'
+
+  useEffect((): void => {
+    fetch(`http://localhost:5000/api/v1/article/category/${category}`)
+      .then(res => res.json())
+      .then(res => {
+        setArticles(res)
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
+
+
   return (
     <div className="flex flex-col items-center mt-5">
       <div className="mt-20 font-extrabold tracking-tight"></div>
@@ -16,21 +35,21 @@ const Deportes = () => {
         <Sport />
       </h3>
       <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-        {!publicaciones && <div><ThreeDots  color="#9c6419" height={120} width={120} /></div> }
-        {publicaciones && publicaciones.map((publicacion)=>
+        {!articles && <div><ThreeDots color="#9c6419" height={120} width={120} /></div>}
+        {articles && articles.map((publicacion) =>
 
-        <Card
-        
-        publicaciones={publicacion}
-        showDetail
-        onDelete={async (product_id) => {
-          const token = await getAccessTokenSilently();
-          console.log("deleting...", product_id);
-          await delete_publicacion(product_id, token);
-          mutate();
-          console.log("DELETED!!");
-        }}
-        />
+          <Card
+
+            publicaciones={publicacion}
+            showDetail
+            onDelete={async (product_id) => {
+              const token = await getAccessTokenSilently();
+              console.log("deleting...", product_id);
+              await delete_publicacion(product_id, token);
+              //mutate();
+              console.log("DELETED!!");
+            }}
+          />
 
         )}
       </div>

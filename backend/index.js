@@ -51,8 +51,8 @@ app.use('/api/v1/comment', comment)
 //app.use(notFound)
 
 // The error handler must be before any other error middleware and after all controllers
-app.use(Sentry.Handlers.errorHandler())
-app.use(handleError)
+// app.use(Sentry.Handlers.errorHandler())
+// app.use(handleError)
 
 const port = process.env.PORT
 app.listen(port, () => {

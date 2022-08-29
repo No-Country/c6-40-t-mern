@@ -10,11 +10,11 @@ const canCreateArticles = requiredScopes('create:publicaciones')
 const canEditArticles = requiredScopes('edit:publicaciones')
 const canDeleteArticles = requiredScopes('delete:publicaciones')
 
-router.post('/', /*checkJwt, canCreateArticles,*/imgHandler, articleValidation, createArticle)
+router.post('/', checkJwt, canCreateArticles, imgHandler, articleValidation, createArticle)
 router.get('/all', readAllArticles)
 router.get('/category/:category', readArticlesByCategory)
 router.get('/:id', readArticle)
-router.put('/:id', /*checkJwt, canCreateArticles,*/imgHandler, articleValidation, updateArticle)
+router.put('/:id', checkJwt, canCreateArticles, imgHandler, articleValidation, updateArticle)
 router.delete('/:id', checkJwt, canDeleteArticles, deleteArticle)
 
 module.exports = router

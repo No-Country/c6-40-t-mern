@@ -39,6 +39,7 @@ module.exports.readAllArticles = async (req, res, next) => {
   const articles = await Article.find({}, '_id title tags author_id img resume').lean()
 
   for (const article of articles) {
+    if (!article.img) continue
     const command = new GetObjectCommand({
       Bucket: BUCKET_NAME,
       Key: article.img.name
@@ -63,7 +64,7 @@ module.exports.readArticlesByCategory = async (req, res, next) => {
     article.img.url = url
   }
 
-  res.send(articles.length === 0 ? 'No hay artículos disponibles para esa categoría' : articles)
+  res.send(articles.length === 0 ? null : articles)
 }
 
 
