@@ -1,5 +1,5 @@
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
-const { GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3')
+const { DeleteObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 const { default: mongoose } = require('mongoose')
 const { Article } = require('../models/articles')
 const { s3 } = require('../config/aws-s3.config')
@@ -9,9 +9,9 @@ const { User } = require('../models/users')
 const { BUCKET_NAME } = process.env
 
 module.exports.createArticle = async (req, res, next) => {
-  const { command, img } = imgUploadConfig(req.file)
+  const { command } = imgUploadConfig(req.file)
 
-  const article = new Article({ ...req.body, img })
+  const article = new Article({ ...req.body })
 
   const session = await mongoose.startSession()
   try {

@@ -18,16 +18,16 @@ const Form = () => {
   });
   const [tagState, setTagState] = useState("");
 
-  useEffect((): void => {
-    fetch('http://localhost:5000/api/v1/user/62fea6442b351f2d0bce250e')
-      .then(res => res.json())
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  })
+  // useEffect((): void => {
+  //   fetch('http://localhost:5000/api/v1/user/62fea6442b351f2d0bce250e')
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       console.log(res)
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // })
 
   const addTag = () => {
     if (tagState.length > 0) {
@@ -52,6 +52,7 @@ const Form = () => {
   }
 
   return (
+
     <div className="w-full flex justify-center items-center">
       <form className="mt-32 bg-slate-700 p-5 rounded-md text-white items-center flex flex-col w-full md:w-4/5 lg:w-1/2 2xl:w-1/2">
         <span className="text-lg font-bold mb-4">Nueva publicación</span>

@@ -1,12 +1,12 @@
 import { Card } from "../components/layout/Card";
 import { MdSportsSoccer as Sport } from "react-icons/md";
-import { publicacionesUser } from "../hooks/publicaionesUser";
+import { articuloUser } from "../hooks/publicaionesUser";
 import { useAuth0 } from "@auth0/auth0-react";
 import { delete_publicacion } from "../lib/publicaciones.repo";
 import { ThreeDots } from "react-loader-spinner";
 
 const Deportes = () => {
-  const { data: publicaciones, mutate } = publicacionesUser();
+  const { data: articulo, mutate } = articuloUser();
   const { getAccessTokenSilently } = useAuth0();
   return (
     <div className="flex flex-col items-center mt-5">
@@ -16,17 +16,17 @@ const Deportes = () => {
         <Sport />
       </h3>
       <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-        {!publicaciones && <div><ThreeDots  color="#9c6419" height={120} width={120} /></div> }
-        {publicaciones && publicaciones.map((publicacion)=>
+        {!articulo && <div><ThreeDots  color="#9c6419" height={120} width={120} /></div> }
+        {articulo && articulo.map((articulos)=>
 
         <Card
         
-        publicaciones={publicacion}
+        articulo={articulos}
         showDetail
-        onDelete={async (product_id) => {
+        onDelete={async (articulo_id) => {
           const token = await getAccessTokenSilently();
-          console.log("deleting...", product_id);
-          await delete_publicacion(product_id, token);
+          console.log("deleting...", articulo_id);
+          await delete_publicacion(articulo_id, token);
           mutate();
           console.log("DELETED!!");
         }}
