@@ -20,18 +20,18 @@ const Form = () => {
 
   const [categories, setCategories] = useState([])
 
-<<<<<<< HEAD
-  // useEffect((): void => {
-  //   fetch('http://localhost:5000/api/v1/user/62fea6442b351f2d0bce250e')
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       console.log(res)
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // })
-=======
+// <<<<<<< HEAD
+//   // useEffect((): void => {
+//   //   fetch('http://localhost:5000/api/v1/user/62fea6442b351f2d0bce250e')
+//   //     .then(res => res.json())
+//   //     .then(res => {
+//   //       console.log(res)
+//   //     })
+//   //     .catch(err => {
+//   //       console.log(err)
+//   //     })
+//   // })
+// =======
   useEffect((): void => {
     fetch('http://localhost:5000/api/v1/category')
       .then(res => res.json())
@@ -42,7 +42,7 @@ const Form = () => {
         console.log(err)
       })
   }, [])
->>>>>>> 83eee4e2d5690af6c66300c35c900edf0b243336
+// >>>>>>> 83eee4e2d5690af6c66300c35c900edf0b243336
 
   const addTag = () => {
     if (tagState.length > 0) {

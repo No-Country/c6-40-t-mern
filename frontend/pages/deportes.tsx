@@ -7,11 +7,11 @@ import { ThreeDots } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 
 const Deportes = () => {
-<<<<<<< HEAD
-  const { data: articulo, mutate } = articuloUser();
-=======
+// <<<<<<< HEAD
+//   const { data: articulo, mutate } = articuloUser();
+// =======
   //const { data: publicaciones, mutate } = publicacionesUser();
->>>>>>> 83eee4e2d5690af6c66300c35c900edf0b243336
+// >>>>>>> 83eee4e2d5690af6c66300c35c900edf0b243336
   const { getAccessTokenSilently } = useAuth0();
 
   const [articles, setArticles] = useState([])
@@ -39,7 +39,7 @@ const Deportes = () => {
         <Sport />
       </h3>
       <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-<<<<<<< HEAD
+{/* <<<<<<< HEAD
         {!articulo && <div><ThreeDots  color="#9c6419" height={120} width={120} /></div> }
         {articulo && articulo.map((articulos)=>
 
@@ -55,7 +55,7 @@ const Deportes = () => {
           console.log("DELETED!!");
         }}
         />
-=======
+======= */}
         {!articles && <div><ThreeDots color="#9c6419" height={120} width={120} /></div>}
         {articles && articles.map((publicacion) =>
 
@@ -71,7 +71,7 @@ const Deportes = () => {
               console.log("DELETED!!");
             }}
           />
->>>>>>> 83eee4e2d5690af6c66300c35c900edf0b243336
+// >>>>>>> 83eee4e2d5690af6c66300c35c900edf0b243336
 
         )}
       </div>
