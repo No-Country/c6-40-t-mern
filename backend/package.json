@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "API rest del diario digital",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "nodemon index.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
