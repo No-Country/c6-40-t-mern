@@ -1,0 +1,3 @@
+### Obtener comentarios de articulo 
+# en params pasar id de Articulo , retorna lista de comenatrios de un articulo
+GET http://localhost:5000/api/v1/comment/62ffadfc66e3253e599a1fc7

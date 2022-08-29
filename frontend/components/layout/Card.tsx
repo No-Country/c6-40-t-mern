@@ -31,13 +31,15 @@ export const Card: React.FC<ArticulosCardProps> = ({
             <div className="flex-shrink-0">
                 <img
                     className="h-48 w-full object-cover"
-                    src=".."
-                    alt=".."
+
+                    src={publicaciones.img?.url}
+                    alt={publicaciones.img?.name}
+
                 />
             </div>
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                 <div className="flex-1">
-                    <a href="#" className="block">
+                    <a href={`articulo/${publicaciones._id}`} className="block">
                         <h3 className="mt-2 text-xl leading-7 font-semibold text-gray-900">
                             {articulo.title}
                         </h3>

@@ -2,7 +2,7 @@ const { User, validateUser } = require('../models/users')
 
 module.exports.createUserController = async (req, res, next) => {
   const { err } = validateUser(req.body)
-  if (err) return res.status(400).send(error.details[0].message)
+  if (err) return res.status(400).send(err.details[0].message)
   else {
     try {
       const user = new User(req.body)
