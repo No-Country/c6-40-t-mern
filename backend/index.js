@@ -48,7 +48,7 @@ app.use('/api/v1/category', category)
 app.use('/api/v1/comment', comment)
 
 // Error handling
-//app.use(notFound)
+app.use(notFound)
 
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler())
