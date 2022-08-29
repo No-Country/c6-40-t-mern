@@ -29,7 +29,7 @@ const Form = () => {
       .catch(err => {
         console.log(err)
       })
-  })
+  }, [])
 
   const addTag = () => {
     if (tagState.length > 0) {

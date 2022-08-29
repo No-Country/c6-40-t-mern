@@ -12,9 +12,25 @@ import { AiOutlineGlobal as Global } from "react-icons/ai";
 import { FcConferenceCall as Politica } from "react-icons/fc";
 import Image from "next/image";
 import logo from "../../public/images/noticias.png";
+import { useEffect, useState } from "react";
 
 
 export const Navbar = ({ children }) => {
+
+    const [categories, setCategories] = useState([])
+
+    useEffect((): void => {
+        fetch('http://localhost:5000/api/v1/category')
+            .then(res => res.json())
+            .then(res => {
+                setCategories(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+
     return (
         <div>
             <nav className="min-h-full  ">
@@ -43,8 +59,14 @@ export const Navbar = ({ children }) => {
                                                                 {isOpen ? 'Categorias' : 'Publicaciones'}
                                                             </MenuButton>
                                                             <MenuList className="bg-slate-800 rounded pr-20 pl-2">
-
-                                                                <ButtonNavar href="/categoria/${category.name}">
+                                                                {categories?.map((category) => {
+                                                                    return <ButtonNavar key={category.key} href={`/${category.key}`}>
+                                                                        <Sport />
+                                                                        <span>{category.name}</span>
+                                                                    </ButtonNavar>
+                                                                })
+                                                                }
+                                                                {/* <ButtonNavar href={`/categoria/${category.name}`}>
                                                                     <Sport />
                                                                     <span>Deportes</span>
                                                                 </ButtonNavar>
@@ -55,7 +77,7 @@ export const Navbar = ({ children }) => {
                                                                 <ButtonNavar href="/internacional">
                                                                     <Global />
                                                                     <span>Internacional</span>
-                                                                </ButtonNavar>
+                                                                </ButtonNavar> */}
                                                             </MenuList>
                                                         </>
                                                     )}
