@@ -18,7 +18,7 @@ app.use(Sentry.Handlers.requestHandler())
 app.use(Sentry.Handlers.tracingHandler())
 
 // Routes import
-
+const root = require('./src/routes/root.routes')
 const user = require('./src/routes/user')
 const articles = require('./src/routes/article')
 const category = require('./src/routes/category')
@@ -42,6 +42,7 @@ app.use(express.urlencoded({ extended: true }))
 
 require('./src/config/mongoose.config')
 
+app.use('/', root)
 app.use('/api/v1/user', user)
 app.use('/api/v1/article', articles)
 app.use('/api/v1/category', category)
