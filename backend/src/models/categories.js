@@ -9,12 +9,20 @@ const categorySchema = new Schema({
     minlength: 2,
     maxlength: 50,
     unique: true
+  },
+  key: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 50,
+    unique: true
   }
 }, { timestamps: true, versionKey: false })
 
 const validateCategory = (category) => {
   const schema = Joi.object({
-    name: Joi.string().min(2).max(50).required()
+    name: Joi.string().min(2).max(50).required(),
+    key: Joi.string().min(2).max(50).required()
   })
   return schema.validate(category)
 }
