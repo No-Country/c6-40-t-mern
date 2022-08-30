@@ -16,19 +16,22 @@ const imageSchema = mongoose.Schema({
 const articleSchema = new Schema({
   title: {
     type: String,
-    minlength: 6,
-    maxlength: 100
+    required: true
   },
   author_id: {
-    type: String
+    type: String,
+    required: true
   },
   resume: {
-    type: String
+    type: String,
+    required: true
   },
   content: {
-    type: String
+    type: String,
+    required: true
   },
   img: {
+    type: imageSchema
   },
   category: {
     type: String,
@@ -49,7 +52,7 @@ const articleSchema = new Schema({
 
 const validateArticle = (article) => {
   const schema = Joi.object({
-    title: Joi.string().min(6).max(100).required(),
+    title: Joi.string().required(),
     author_id: Joi.string().required(),
     resume: Joi.string().required(),
     content: Joi.string().required(),

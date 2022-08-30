@@ -19,11 +19,29 @@ export const Card: React.FC<ArticulosCardProps> = ({
 
     const router = useRouter();
 
+    const handleClick = () => {
+        fetch(`http://localhost:5000/api/v1/user/favorites/${user.sub}`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ article_id: publicaciones._id })
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     return (
         <div className="flex flex-col rounded shadow-xl max-w-sm transition-all duration-500 hover:scale-105 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 ease-in-out items-center p-4 rounded-md bg-white dark:bg-slate-900">
             <div className="relative bottom-0 left-0">
                 <button className="absolute h-13 w-13 p-3 m-3 right-20 justify-center rounded-full bg-transparent hover:bg-red-500 text-red-700 hover:text-white hover:border-transparent animate-pulse ">
-                    <i className="flex flex-row items-center">
+                    <i onClick={handleClick} className="flex flex-row items-center">
                         <Favorite size={25} />
                     </i>
                 </button>

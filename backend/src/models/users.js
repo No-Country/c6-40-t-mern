@@ -20,7 +20,7 @@ const userSchema = new Schema({
     type: [Schema.Types.ObjectId],
     default: []
   }
-}, { timestamps: true, versionKey: false, _id: false })
+}, { timestamps: true, versionKey: false })
 
 const validateUser = (user) => {
   const schema = Joi.object({

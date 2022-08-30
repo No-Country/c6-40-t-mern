@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
 
   const { error } = validateArticle(req.body)
 
-  if (error) return res.status(400).send(error)
+  if (error) return res.status(400).json(error.details[0].message)
   if (req.method === 'POST' && !req.file) return res.status(400).send('You must send an image with the article')
   else next()
 }

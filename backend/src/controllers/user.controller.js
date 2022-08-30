@@ -48,7 +48,7 @@ module.exports.deleteUserById = async (req, res, next) => {
 
 module.exports.addFavorite = async (req, res, next) => {
   try {
-    const user = await User.findOneAndUpdate({ id: req.params.id }, { $push: { favorites: req.body._id } }, { new: true })
+    const user = await User.findOneAndUpdate({ id: req.params.id }, { $push: { favorites: req.body.article_id } }, { new: true })
     if (!user) res.status(400).send('No se encontró un usuario con el ID especificado')
     else res.send(user)
   } catch (err) {

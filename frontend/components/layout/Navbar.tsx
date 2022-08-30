@@ -116,36 +116,20 @@ export const Navbar = ({ children }) => {
                             </div>
                             <Disclosure.Panel className="md:hidden">
                                 <div className="px-1">
+
                                     <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
                                         <ButtonNavar href="/">
                                             <Home />
                                             Home
                                         </ButtonNavar>
                                     </Disclosure.Button>
-                                    <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
-                                        <ButtonNavar href="/deportes">
-                                            <Sport />
-                                            Deportes
-                                        </ButtonNavar>
-                                    </Disclosure.Button>
-                                    <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
-                                        <ButtonNavar href="/politica">
-                                            <Politica />
-                                            Politica
-                                        </ButtonNavar>
-                                    </Disclosure.Button>
-                                    <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
-                                        <ButtonNavar href="/internacional">
-                                            <Global />
-                                            Internacional
-                                        </ButtonNavar>
-                                    </Disclosure.Button>
-                                    <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
-                                        <ButtonNavar href="/form">
-                                            <Edit />
-                                            Publicar
-                                        </ButtonNavar>
-                                    </Disclosure.Button>
+                                    {categories?.map((category) => {
+                                        return <Disclosure.Button key={category.key} className="block px-3 py-2 rounded-md text-base font-medium">
+                                            <ButtonNavar href={`/${category.key}`}>
+                                                {category.name}
+                                            </ButtonNavar>
+                                        </Disclosure.Button>
+                                    })}
                                 </div>
                                 <MobileButton />
                             </Disclosure.Panel>
