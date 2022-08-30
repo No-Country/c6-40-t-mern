@@ -20,18 +20,6 @@ const Form = () => {
 
   const [categories, setCategories] = useState([])
 
-// <<<<<<< HEAD
-//   // useEffect((): void => {
-//   //   fetch('http://localhost:5000/api/v1/user/62fea6442b351f2d0bce250e')
-//   //     .then(res => res.json())
-//   //     .then(res => {
-//   //       console.log(res)
-//   //     })
-//   //     .catch(err => {
-//   //       console.log(err)
-//   //     })
-//   // })
-// =======
   useEffect((): void => {
     fetch('http://localhost:5000/api/v1/category')
       .then(res => res.json())
@@ -42,7 +30,6 @@ const Form = () => {
         console.log(err)
       })
   }, [])
-// >>>>>>> 83eee4e2d5690af6c66300c35c900edf0b243336
 
   const addTag = () => {
     if (tagState.length > 0) {
@@ -97,7 +84,6 @@ const Form = () => {
   }
 
   return (
-
     <div className="w-full flex justify-center items-center">
       <form className="mt-32 bg-slate-700 p-5 rounded-md text-white items-center flex flex-col w-full md:w-4/5 lg:w-1/2 2xl:w-1/2" onSubmit={handleSubmit}>
         <span className="text-lg font-bold mb-4">Nueva publicación</span>

@@ -2,27 +2,27 @@ import { type } from "os";
 import useSWR from "swr";
 
 
-// export interface Publicaciones{
-//     _id?: string;
-//     title?: string,
-//     author_id?: string,
-//     resume?:string,
-//     content?:string,
-//     img?: {url: string , name:string},
-//     category?:string,
-//     tags?:[string],
-//     favorites?: number,
-//     comments?: [string]
-//   }
+export interface Publicaciones{
+    _id?: string;
+    title?: string,
+    author_id?: string,
+    resume?:string,
+    content?:string,
+    img?: {url: string , name:string},
+    category?:string,
+    tags?:[string],
+    favorites?: number,
+    comments?: [string]
+  }
   
   
-//   export const publicacionesUser= () => {
-//     const swr = useSWR<Publicaciones[]>("/api/v1/article/all", {
-//       refreshInterval: 3000,
-//     });
+  export const publicacionesUser= () => {
+    const swr = useSWR<Publicaciones[]>("/api/v1/article/all", {
+      refreshInterval: 3000,
+    });
   
-//     return swr;
-//   };
+    return swr;
+  };
 
 
 export interface Articulos{
@@ -39,7 +39,7 @@ export interface Articulos{
 }
 
   export const articuloUser= () => {
-    const swr = useSWR<Articulos[]>("/api/v1/article/all", {
+    const swr = useSWR<Articulos[]>("/api/v1/article", {
       refreshInterval: 3000,
     });
   
