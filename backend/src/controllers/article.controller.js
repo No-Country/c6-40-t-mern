@@ -9,17 +9,11 @@ const { User } = require('../models/users')
 const { BUCKET_NAME } = process.env
 
 module.exports.createArticle = async (req, res, next) => {
-<<<<<<< HEAD
-  const { command } = imgUploadConfig(req.file)
-
-  const article = new Article({ ...req.body })
-=======
 
   const { command, img } = await imgUploadConfig(req.file)
 
   const article = new Article({ ...req.body, img })
   console.log(article)
->>>>>>> 83eee4e2d5690af6c66300c35c900edf0b243336
 
   const session = await mongoose.startSession()
   try {
