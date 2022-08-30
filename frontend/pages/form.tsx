@@ -7,6 +7,7 @@ import modules from "../toolbarConfig/toolbarConfig";
 const Form = () => {
 
   const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+  console.log(API_ENDPOINT)
 
   const { user } = useAuth0()
 

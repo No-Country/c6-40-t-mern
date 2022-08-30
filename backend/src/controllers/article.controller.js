@@ -68,7 +68,7 @@ module.exports.readArticlesByCategory = async (req, res, next) => {
 }
 
 module.exports.readArticlesByFavorites = async (req, res, next) => {
-
+  console.log(req.params)
   const user = await User.findOne({ id: req.params.id })
   const articles = await Article.find({ _id: user.favorites }, '_id title tags author_id img resume').lean()
 

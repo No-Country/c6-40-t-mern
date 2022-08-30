@@ -22,7 +22,7 @@ export const Navbar = ({ children }) => {
     const [categories, setCategories] = useState([])
 
     useEffect((): void => {
-        fetch(`${API_ENDPOINT}/article/category`)
+        fetch(`${API_ENDPOINT}/category/`)
             .then(res => res.json())
             .then(res => {
                 setCategories(res)
