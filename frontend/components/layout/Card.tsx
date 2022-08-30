@@ -1,9 +1,10 @@
-import { MdFavoriteBorder as Favorite } from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { MdDeleteSweep as Dele } from "react-icons/md";
 import { FiEdit as Edi } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Articulos } from "../../hooks/publicaionesUser";
 import { useRouter } from "next/router";
+import { useState } from "react";
 interface ArticulosCardProps {
     publicaciones: Articulos;
     showDetail?: boolean;
@@ -18,11 +19,14 @@ export const Card: React.FC<ArticulosCardProps> = ({
     const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
 
     const { user } = useAuth0();
-    console.log(user);
 
     const router = useRouter();
 
-    const handleClick = () => {
+    const [loadingDelete, setLoadingDelete] = useState(false)
+    const [loadingFavorite, setLoadingFavorite] = useState(false)
+
+    const handleAddFavorite = () => {
+        setLoadingFavorite(true)
         fetch(`${API_ENDPOINT}/user/favorites/${user.sub}`, {
             method: 'POST',
             mode: 'cors',
@@ -31,21 +35,26 @@ export const Card: React.FC<ArticulosCardProps> = ({
             },
             body: JSON.stringify({ article_id: publicaciones._id })
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+    }
+
+    const handleDelete = () => {
+        setLoadingDelete(true)
+        fetch(`${API_ENDPOINT}/article/${publicaciones._id}`, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
     }
 
     return (
         <div className="flex flex-col rounded shadow-xl max-w-sm transition-all duration-500 hover:scale-105 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 ease-in-out items-center p-4 rounded-md bg-white dark:bg-slate-900">
             <div className="relative bottom-0 left-0">
-                <button className="absolute h-13 w-13 p-3 m-3 right-20 justify-center rounded-full bg-transparent hover:bg-red-500 text-red-700 hover:text-white hover:border-transparent animate-pulse ">
-                    <i onClick={handleClick} className="flex flex-row items-center">
-                        <Favorite size={25} />
+                <button disabled={loadingFavorite} onClick={handleAddFavorite} className="absolute h-13 w-13 p-3 m-3 right-20 justify-center rounded-full bg-transparent hover:bg-red-500 text-red-700 hover:text-white hover:border-transparent animate-pulse ">
+                    <i className="flex flex-row items-center">
+                        {loadingFavorite ? <MdFavorite size={25} />
+                            : <MdFavoriteBorder size={25} />}
                     </i>
                 </button>
             </div>
@@ -104,12 +113,8 @@ export const Card: React.FC<ArticulosCardProps> = ({
                                 <Edi size={20} />{" "}
                             </button>
                             <button
-                                onClick={() => {
-                                    setTimeout(() => {
-                                        onDelete(publicaciones._id);
-                                        router.push("/deportes");
-                                    }, 2000);
-                                }}
+                                onClick={handleDelete}
+                                disabled={loadingDelete}
                                 className="text-red-600 hover:bg-red-200 font-montserrat py-2 px-8 font-medium rounded-xl transition-all duration-300"
                             >
                                 <Dele size={20} />{" "}

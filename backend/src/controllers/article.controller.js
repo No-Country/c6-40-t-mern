@@ -133,15 +133,15 @@ module.exports.deleteArticle = async (req, res, next) => {
     session.startTransaction()
     const article = await Article.findByIdAndDelete(req.params.id)
     if (!article) res.status(400).send('No se encontró un archivo con el ID especificado')
-    else {
+    else if (article.img) {
       const command = new DeleteObjectCommand({
         Bucket: BUCKET_NAME,
         Key: article.img.name
       })
       const imgDeleted = await s3.send(command)
       if (imgDeleted.$metadata.httpStatusCode !== 204) throw new Error(imgDeleted)
-      res.send(article)
     }
+    res.send(article)
     await session.commitTransaction()
   } catch (err) {
     next(err)
