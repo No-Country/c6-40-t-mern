@@ -1,5 +1,5 @@
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
-const { GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3')
+const { DeleteObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 const { default: mongoose } = require('mongoose')
 const { Article } = require('../models/articles')
 const { s3 } = require('../config/aws-s3.config')

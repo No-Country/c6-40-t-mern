@@ -1,7 +1,6 @@
 import {  publicaciones_api } from "./api";
 
 export interface PublicacionesPostData {
-
   title?: string,
   author_id?: string,
   resume?:string,

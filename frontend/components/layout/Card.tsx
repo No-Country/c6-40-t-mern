@@ -2,17 +2,16 @@ import { MdFavoriteBorder as Favorite } from "react-icons/md";
 import { MdDeleteSweep as Dele } from "react-icons/md";
 import { FiEdit as Edi } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Publicaciones } from "../../hooks/publicaionesUser";
+import { Articulos } from "../../hooks/publicaionesUser";
 import { useRouter } from "next/router";
-interface PublicacionesCardProps {
-    publicaciones: Publicaciones;
+interface ArticulosCardProps {
+    articulo: Articulos;
     showDetail?: boolean;
-    onDelete: (product_id: string) => void;
+    onDelete: (articulo_id: string) => void;
 }
 
-export const Card: React.FC<PublicacionesCardProps> = ({
-    publicaciones,
-    showDetail = false,
+export const Card: React.FC<ArticulosCardProps> = ({
+    articulo,
     onDelete,
 }) => {
     const { user } = useAuth0();
@@ -32,18 +31,20 @@ export const Card: React.FC<PublicacionesCardProps> = ({
             <div className="flex-shrink-0">
                 <img
                     className="h-48 w-full object-cover"
+
                     src={publicaciones.img?.url}
                     alt={publicaciones.img?.name}
+
                 />
             </div>
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                 <div className="flex-1">
                     <a href={`articulo/${publicaciones._id}`} className="block">
                         <h3 className="mt-2 text-xl leading-7 font-semibold text-gray-900">
-                            {publicaciones.title}
+                            {articulo.title}
                         </h3>
                         <p className="mt-3 text-base leading-6 text-gray-500">
-                            {publicaciones.content}
+                            {articulo.content}
                         </p>
                     </a>
                 </div>
@@ -84,7 +85,7 @@ export const Card: React.FC<PublicacionesCardProps> = ({
                             <button
                                 onClick={() => {
                                     setTimeout(() => {
-                                        onDelete(publicaciones._id);
+                                        onDelete(articulo._id);
                                         router.push("/deportes");
                                     }, 2000);
                                 }}
