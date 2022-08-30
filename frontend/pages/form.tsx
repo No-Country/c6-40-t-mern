@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useToast } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -7,9 +8,10 @@ import modules from "../toolbarConfig/toolbarConfig";
 const Form = () => {
 
   const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
-  console.log(API_ENDPOINT)
 
   const { user } = useAuth0()
+
+  const toast = useToast()
 
   const [formState, setFormState] = useState({
     title: "",
@@ -20,6 +22,7 @@ const Form = () => {
   const [content, setContent] = useState('')
   const [tagState, setTagState] = useState('')
   const [img, setImg] = useState()
+  const [error, setError] = useState(false)
 
   const [categories, setCategories] = useState([])
 
@@ -57,25 +60,30 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const formData = new FormData()
-    formData.append("img", img)
-    formData.append("content", content)
-    formData.append("author_id", user.sub)
-    for (const prop in formState) {
-      formData.append(prop, formState[prop])
-    }
+    if (true) {
+      setError(true)
+    } else {
 
-    fetch(`${API_ENDPOINT}/article`, {
-      method: "POST",
-      body: formData,
-      //headers: { 'Content-Type': 'multipart/form-data' }
-    })
-      .then(res => {
-        console.log(res)
+      const formData = new FormData()
+      formData.append("img", img)
+      formData.append("content", content)
+      formData.append("author_id", user.sub)
+      for (const prop in formState) {
+        formData.append(prop, formState[prop])
+      }
+
+      fetch(`${API_ENDPOINT}/article`, {
+        method: "POST",
+        body: formData,
+        //headers: { 'Content-Type': 'multipart/form-data' }
       })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 
   const handleChange = (e) => {
@@ -116,6 +124,7 @@ const Form = () => {
 
         </div>
         <input onChange={e => setImg(e.target.files[0])} type="file" />
+        {error && <span className="text-lg font-bold mb-4">Debe rellenar todos los campos para poder continuar</span>}
         <button className="p-2 bg-[#a16207] w-52 mt-4 rounded-md hover:bg-yellow-600 transition" type="submit">Crear Publicación</button>
       </form>
     </div>
