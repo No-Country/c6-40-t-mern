@@ -67,6 +67,23 @@ module.exports.readArticlesByCategory = async (req, res, next) => {
   res.send(articles.length === 0 ? null : articles)
 }
 
+module.exports.readArticlesByFavorites = async (req, res, next) => {
+
+  const user = await User.findOne({ id: req.params.id })
+  const articles = await Article.find({ _id: user.favorites }, '_id title tags author_id img resume').lean()
+
+  for (const article of articles) {
+    const command = new GetObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: article.img.name
+    })
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
+    article.img.url = url
+  }
+
+  res.send(articles.length === 0 ? null : articles)
+}
+
 
 module.exports.readArticle = async (req, res, next) => {
   try {

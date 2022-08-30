@@ -2,9 +2,63 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Image from "next/image";
 import logo from "../../public/images/caja-vacia.png";
 import { FiEdit as Edi } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import { Card } from "../layout/Card";
+import { publicacionesUser } from "../../hooks/publicaionesUser";
+import { delete_publicacion } from "../../lib/publicaciones.repo";
 
 export const Profile = () => {
+
     const { user, logout } = useAuth0();
+    const { mutate } = publicacionesUser();
+    const { getAccessTokenSilently } = useAuth0()
+
+    const [userData, setUserData] = useState({})
+    const [articles, setArticles] = useState([])
+    const [bio, setBio] = useState("Nueva biografia")
+
+    useEffect((): void => {
+        fetch(`http://localhost:5000/api/v1/user/${user.sub}`)
+            .then(res => res.json())
+            .then(res => {
+                setUserData(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        fetch(`http://localhost:5000/api/v1/article/favorites/${user.sub}`)
+            .then(res => res.json())
+            .then(res => {
+                setArticles(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    const handleClick = () => {
+
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        fetch(`http://localhost:5000/api/v1/user/${user.sub}`, {
+            method: "PUT",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ bio })
+        })
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     return (
         <section className="relative lg:pb-24 pb-16">
             <div className="container-fluid">
@@ -112,32 +166,41 @@ export const Profile = () => {
                     <div className="lg:w-3/4 md:w-2/3 md:px-3 mt-[30px] md:mt-0">
                         <div className="pb-6 border-b border-gray-100 dark:border-gray-700">
                             <h5 className="text-xl font-semibold">{user.name}</h5>
-                            <p className="text-slate-400 mt-3">
-                                I have started my career as a trainee and prove my self and
-                                achieve all the milestone with good guidance and reach up to the
-                                project manager. In this journey, I understand all the procedure
-                                which make me a good developer, team leader, and a project
-                                manager.
-                            </p>
-                            <button className="mt-5 text-yellow-600 hover:bg-yellow-200 font-montserrat py-2 px-8 font-medium rounded-xl transition-all duration-300 flex">
+                            {!userData.bio ?
+                                <h4 className="text-xl font-semibold">No has cargado ninguna biografía</h4>
+                                : <p className="text-slate-400 mt-3">{userData.bio}</p>
+                            }
+                            <button onClick={handleClick} className="mt-5 text-yellow-600 hover:bg-yellow-200 font-montserrat py-2 px-8 font-medium rounded-xl transition-all duration-300 flex">
                                 <Edi size={20} /> Editar
                             </button>
                         </div>
-                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-[30px] pt-6">
-                            <div>
-                                <h5 className="text-xl font-semibold">Publicaciones</h5>
-                                <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                        <div className="flex flex-col items-center mt-5">
+                            <h5 className="text-xl font-semibold">Favoritos</h5>
+                            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                                {articles.length === 0 ?
                                     <div>
                                         <p className="text-slate-400 mt-3">No hay publicaciones</p>
                                         <Image src={logo} alt="logo" height={100} width={80} />
                                     </div>
-                                    {/* //aca publicaciones */}
-                                </div>
+                                    : articles.map((publicacion) =>
+                                        <Card
+                                            publicaciones={publicacion}
+                                            showDetail
+                                            key={publicacion._id}
+                                            onDelete={async (product_id) => {
+                                                const token = await getAccessTokenSilently();
+                                                console.log("deleting...", product_id);
+                                                await delete_publicacion(product_id, token);
+                                                mutate();
+                                                console.log("DELETED!!");
+                                            }}
+                                        />
+                                    )}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };

@@ -54,7 +54,6 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(user)
     const formData = new FormData()
     formData.append("img", img)
     formData.append("content", content)

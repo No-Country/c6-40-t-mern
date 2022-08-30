@@ -18,15 +18,13 @@ module.exports.getUserById = (req, res, next) => {
   const { id } = req.params
   User.findOne({ id: id })
     .then(user => {
-      // console.log(user)
-      res.status(200).json({
-        response: user
-      })
+      res.status(200).json(user)
     })
     .catch(err => next(err))
 }
 
 module.exports.updateUserById = async (req, res, next) => {
+
   try {
     const user = await User.findOneAndUpdate({ id: req.params.id }, req.body, { new: true, runValidators: true })
     if (!user) res.status(400).send('No se encontró un usuario con el ID especificado')

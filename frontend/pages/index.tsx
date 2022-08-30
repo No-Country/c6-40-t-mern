@@ -29,6 +29,7 @@ const Home = () => {
               <Card
                 publicaciones={publicacion}
                 showDetail
+                key={publicacion._id}
                 onDelete={async (product_id) => {
                   const token = await getAccessTokenSilently();
                   console.log("deleting...", product_id);
