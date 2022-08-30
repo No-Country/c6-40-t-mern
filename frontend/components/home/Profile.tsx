@@ -9,6 +9,8 @@ import { delete_publicacion } from "../../lib/publicaciones.repo";
 
 export const Profile = () => {
 
+    const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+
     const { user, logout } = useAuth0();
     const { mutate } = publicacionesUser();
     const { getAccessTokenSilently } = useAuth0()
@@ -18,7 +20,7 @@ export const Profile = () => {
     const [bio, setBio] = useState("Nueva biografia")
 
     useEffect((): void => {
-        fetch(`http://localhost:5000/api/v1/user/${user.sub}`)
+        fetch(`${API_ENDPOINT}/user/${user.sub}`)
             .then(res => res.json())
             .then(res => {
                 setUserData(res)
@@ -26,7 +28,7 @@ export const Profile = () => {
             .catch(err => {
                 console.log(err)
             })
-        fetch(`http://localhost:5000/api/v1/article/favorites/${user.sub}`)
+        fetch(`${API_ENDPOINT}/article/favorites/${user.sub}`)
             .then(res => res.json())
             .then(res => {
                 setArticles(res)
@@ -43,7 +45,7 @@ export const Profile = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        fetch(`http://localhost:5000/api/v1/user/${user.sub}`, {
+        fetch(`${API_ENDPOINT}/user/${user.sub}`, {
             method: "PUT",
             mode: 'cors',
             headers: {

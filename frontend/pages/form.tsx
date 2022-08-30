@@ -6,6 +6,8 @@ import modules from "../toolbarConfig/toolbarConfig";
 
 const Form = () => {
 
+  const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+
   const { user } = useAuth0()
 
   const [formState, setFormState] = useState({
@@ -21,7 +23,7 @@ const Form = () => {
   const [categories, setCategories] = useState([])
 
   useEffect((): void => {
-    fetch('http://localhost:5000/api/v1/category')
+    fetch(`${API_ENDPOINT}/category`)
       .then(res => res.json())
       .then(res => {
         setCategories(res)
@@ -62,7 +64,7 @@ const Form = () => {
       formData.append(prop, formState[prop])
     }
 
-    fetch("http://localhost:5000/api/v1/article", {
+    fetch(`${API_ENDPOINT}/article`, {
       method: "POST",
       body: formData,
       //headers: { 'Content-Type': 'multipart/form-data' }

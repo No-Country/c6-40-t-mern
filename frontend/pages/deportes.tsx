@@ -7,6 +7,9 @@ import { ThreeDots } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 
 const Deportes = () => {
+
+  const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+
   //const { data: publicaciones, mutate } = publicacionesUser();
   const { getAccessTokenSilently } = useAuth0();
 
@@ -15,7 +18,7 @@ const Deportes = () => {
   const category = 'espectaculos'
 
   useEffect((): void => {
-    fetch(`http://localhost:5000/api/v1/article/category/${category}`)
+    fetch(`${API_ENDPOINT}/article/category/${category}`)
       .then(res => res.json())
       .then(res => {
         setArticles(res)

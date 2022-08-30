@@ -17,10 +17,12 @@ import { useEffect, useState } from "react";
 
 export const Navbar = ({ children }) => {
 
+    const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+
     const [categories, setCategories] = useState([])
 
     useEffect((): void => {
-        fetch('http://localhost:5000/api/v1/category')
+        fetch(`${API_ENDPOINT}/article/category`)
             .then(res => res.json())
             .then(res => {
                 setCategories(res)

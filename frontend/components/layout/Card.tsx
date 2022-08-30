@@ -14,13 +14,16 @@ export const Card: React.FC<ArticulosCardProps> = ({
     publicaciones,
     onDelete,
 }) => {
+
+    const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+
     const { user } = useAuth0();
     console.log(user);
 
     const router = useRouter();
 
     const handleClick = () => {
-        fetch(`http://localhost:5000/api/v1/user/favorites/${user.sub}`, {
+        fetch(`${API_ENDPOINT}/user/favorites/${user.sub}`, {
             method: 'POST',
             mode: 'cors',
             headers: {
