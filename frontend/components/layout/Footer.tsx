@@ -1,4 +1,4 @@
-import { ButtonNavar } from "./ButtonNavar";
+import { ButtonNavbar } from "./ButtonNavbar";
 import { FaFacebook as Face } from "react-icons/fa";
 import { BsInstagram as Insta } from "react-icons/bs";
 import { AiFillTwitterCircle as Twitt } from "react-icons/ai";
@@ -19,13 +19,13 @@ export const Footer = () => {
     return (
         <div className="bg-slate-800 p-10 flex-col justify-center">
             <div className="flex justify-center items-center">
-            <Image src={logo} alt="logo" height={70} width={70} />
+                <Image src={logo} alt="logo" height={70} width={70} />
             </div>
             <div className="flex flex-col justify-center items-center mt-10 md:flex-row ">
-                <ButtonNavar href="/">
+                <ButtonNavbar href="/">
                     <Home />
                     <span>Home</span>
-                </ButtonNavar>
+                </ButtonNavbar>
                 <Menu>
                     {({ isOpen }) => (
                         <>
@@ -34,18 +34,18 @@ export const Footer = () => {
                             </MenuButton>
                             <MenuList className="bg-slate-800 rounded pr-20 pl-2">
 
-                                <ButtonNavar href="/deportes">
+                                <ButtonNavbar href="/deportes">
                                     <Sport />
                                     <span>Deportes</span>
-                                </ButtonNavar>
-                                <ButtonNavar href="/politica">
+                                </ButtonNavbar>
+                                <ButtonNavbar href="/politica">
                                     <Politica />
                                     <span>Politica</span>
-                                </ButtonNavar>
-                                <ButtonNavar href="/internacional">
+                                </ButtonNavbar>
+                                <ButtonNavbar href="/internacional">
                                     <Global />
                                     <span>Internacional</span>
-                                </ButtonNavar>
+                                </ButtonNavbar>
                             </MenuList>
                         </>
                     )}
@@ -56,10 +56,10 @@ export const Footer = () => {
                     <Public />
                     <span>Publicaciones</span>
                 </ButtonNavar> */}
-                <ButtonNavar href="/form">
+                <ButtonNavbar href="/form">
                     <Edit />
                     <span>Publicar</span>
-                </ButtonNavar>
+                </ButtonNavbar>
             </div>
             {/* <div className="flex justify-center items-center mt-10">
                 <img src=".." className="text-white" alt="logo secundario" />

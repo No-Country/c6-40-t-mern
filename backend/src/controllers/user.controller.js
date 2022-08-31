@@ -1,4 +1,5 @@
 const { User, validateUser } = require('../models/users')
+const { Article } = require('../models/articles')
 
 module.exports.createUserController = async (req, res, next) => {
   const { err } = validateUser(req.body)
@@ -46,9 +47,9 @@ module.exports.deleteUserById = async (req, res, next) => {
 
 module.exports.addFavorite = async (req, res, next) => {
   try {
-    const user = await User.findOneAndUpdate({ id: req.params.id }, { $push: { favorites: req.body.article_id } }, { new: true })
-    if (!user) res.status(400).send('No se encontró un usuario con el ID especificado')
-    else res.send(user)
+    await User.findOneAndUpdate({ id: req.params.id }, { $push: { favorites: req.body.article_id } }, { new: true })
+    await Article.findOneAndUpdate({ id: req.params.id }, { $inc: { favorites: 1 } }, { new: true })
+    res.send({})
   } catch (err) {
     next(err)
   }

@@ -1,12 +1,23 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
 import Carousel from "../components/home/Carousel";
 import CardContainer from "../components/layout/CardContainer";
-import { publicacionesUser } from "../hooks/publicaionesUser";
 
 const Home = () => {
 
-  const { data: articles, mutate } = publicacionesUser();
-  const { getAccessTokenSilently } = useAuth0()
+  const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+  const [articles, setArticles] = useState([])
+
+  useEffect((): void => {
+    fetch(`${API_ENDPOINT}/article/all`)
+      .then(res => res.json())
+      .then(res => {
+        setArticles(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
 
   const { user } = useAuth0();
   return (

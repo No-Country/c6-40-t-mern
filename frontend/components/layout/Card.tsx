@@ -2,9 +2,9 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { MdDeleteSweep as Dele } from "react-icons/md";
 import { FiEdit as Edi } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Articulos } from "../../hooks/publicaionesUser";
-import { useRouter } from "next/router";
+import { Articulos } from "../../lib/interfaces";
 import { useState } from "react";
+import Link from "next/link";
 interface ArticulosCardProps {
     publicaciones: Articulos;
     showDetail?: boolean;
@@ -57,7 +57,6 @@ export const Card: React.FC<ArticulosCardProps> = ({
             <div className="flex-shrink-0">
                 <img
                     className="h-48 w-full object-cover"
-
                     src={publicaciones.img?.url}
                     alt={publicaciones.img?.name}
 
@@ -65,7 +64,7 @@ export const Card: React.FC<ArticulosCardProps> = ({
             </div>
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                 <div className="flex-1">
-                    <a href={`articulo/${publicaciones._id}`} className="block">
+                    <a href={`article/${publicaciones._id}`} className="block">
                         <h3 className="mt-2 text-xl leading-7 font-semibold text-gray-900">
                             {publicaciones.title}
                         </h3>

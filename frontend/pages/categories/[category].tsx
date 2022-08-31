@@ -1,16 +1,12 @@
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import CardContainer from "../../components/layout/CardContainer";
 
-const Deportes = () => {
+const Category = () => {
 
   const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
   const router = useRouter()
   const { category } = router.query
-
-  const { getAccessTokenSilently } = useAuth0();
 
   const [articles, setArticles] = useState([])
 
@@ -19,7 +15,6 @@ const Deportes = () => {
       .then(res => res.json())
       .then(res => {
         setArticles(res)
-        console.log(res)
       })
       .catch(err => {
         console.log(err)
@@ -38,4 +33,4 @@ const Deportes = () => {
   );
 };
 
-export default Deportes;
+export default Category;

@@ -1,7 +1,3 @@
-import { type } from "os";
-import useSWR from "swr";
-
-
 export interface Publicaciones {
   _id?: string;
   title?: string,
@@ -15,16 +11,6 @@ export interface Publicaciones {
   comments?: [string]
 }
 
-
-export const publicacionesUser = () => {
-  const swr = useSWR<Publicaciones[]>("/article/all", {
-    refreshInterval: 3000,
-  });
-
-  return swr;
-};
-
-
 export interface Articulos {
   _id?: string;
   title?: string,
@@ -37,11 +23,3 @@ export interface Articulos {
   favorites?: number,
   comments?: [string]
 }
-
-export const articuloUser = () => {
-  const swr = useSWR<Articulos[]>("/article", {
-    refreshInterval: 3000,
-  });
-
-  return swr;
-};

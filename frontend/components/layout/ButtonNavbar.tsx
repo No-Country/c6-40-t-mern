@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export const ButtonNavar = ({ children, href }) => {
+export const ButtonNavbar = ({ children, href }) => {
   const { asPath } = useRouter();
   // console.log("CURRENT", asPath);
   const isActive = asPath == href;

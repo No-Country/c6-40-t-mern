@@ -1,6 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { ButtonNavar } from "./ButtonNavar";
+import { ButtonNavbar } from "./ButtonNavbar";
 import { UserButton } from "./UserButton";
 import { MobileButton } from "./MobileBotton";
 import { GoHome as Home } from "react-icons/go";
@@ -8,8 +8,6 @@ import { MdPublic as Public } from "react-icons/md";
 import { AiOutlineEdit as Edit } from "react-icons/ai";
 import { Button, Menu, MenuButton, MenuList } from "@chakra-ui/react";
 import { MdSportsSoccer as Sport } from "react-icons/md";
-import { AiOutlineGlobal as Global } from "react-icons/ai";
-import { FcConferenceCall as Politica } from "react-icons/fc";
 import Image from "next/image";
 import logo from "../../public/images/noticias.png";
 import { useEffect, useState } from "react";
@@ -50,10 +48,10 @@ export const Navbar = ({ children }) => {
                                         </div>
                                         <div className="hidden md:block">
                                             <div className="flex items-center">
-                                                <ButtonNavar href="/">
+                                                <ButtonNavbar href="/">
                                                     <Home />
                                                     <span>Home</span>
-                                                </ButtonNavar>
+                                                </ButtonNavbar>
                                                 <Menu>
                                                     {({ isOpen }) => (
                                                         <>
@@ -62,19 +60,19 @@ export const Navbar = ({ children }) => {
                                                             </MenuButton>
                                                             <MenuList className="bg-slate-800 rounded pr-20 pl-2">
                                                                 {categories?.map((category) => {
-                                                                    return <ButtonNavar key={category.key} href={`/categories/${category.key}`}>
+                                                                    return <ButtonNavbar key={category.key} href={`/categories/${category.key}`}>
                                                                         <Sport />
                                                                         <span>{category.name}</span>
-                                                                    </ButtonNavar>
+                                                                    </ButtonNavbar>
                                                                 })}
                                                             </MenuList>
                                                         </>
                                                     )}
                                                 </Menu>
-                                                <ButtonNavar href="/form">
+                                                <ButtonNavbar href="/form">
                                                     <Edit />
                                                     <span>Publicar</span>
-                                                </ButtonNavar>
+                                                </ButtonNavbar>
                                             </div>
                                         </div>
                                     </div>
@@ -103,16 +101,16 @@ export const Navbar = ({ children }) => {
                                 <div className="px-1">
 
                                     <Disclosure.Button className="block px-3 py-2 rounded-md text-base font-medium">
-                                        <ButtonNavar href="/">
+                                        <ButtonNavbar href="/">
                                             <Home />
                                             Home
-                                        </ButtonNavar>
+                                        </ButtonNavbar>
                                     </Disclosure.Button>
                                     {categories?.map((category) =>
                                         <Disclosure.Button key={category.key} className="block px-3 py-2 rounded-md text-base font-medium">
-                                            <ButtonNavar href={`/categories/${category.key}`}>
+                                            <ButtonNavbar href={`/categories/${category.key}`}>
                                                 {category.name}
-                                            </ButtonNavar>
+                                            </ButtonNavbar>
                                         </Disclosure.Button>
                                     )}
                                 </div>
