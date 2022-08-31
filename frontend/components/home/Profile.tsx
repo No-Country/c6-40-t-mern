@@ -3,17 +3,13 @@ import Image from "next/image";
 import logo from "../../public/images/caja-vacia.png";
 import { FiEdit as Edi } from "react-icons/fi";
 import { useEffect, useState } from "react";
-import { Card } from "../layout/Card";
-import { publicacionesUser } from "../../hooks/publicaionesUser";
-import { delete_publicacion } from "../../lib/publicaciones.repo";
+import CardContainer from "../layout/CardContainer";
 
 export const Profile = () => {
 
     const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
 
     const { user, logout } = useAuth0();
-    const { mutate } = publicacionesUser();
-    const { getAccessTokenSilently } = useAuth0()
 
     const [userData, setUserData] = useState({})
     const [articles, setArticles] = useState([])
@@ -101,7 +97,7 @@ export const Profile = () => {
                                     <div>
                                         <div className="relative h-28 w-28 mx-auto">
                                             <img
-                                                src={user.picture}
+                                                src={user?.picture}
                                                 className="rounded-full shadow dark:shadow-gray-800 ring-4 ring-slate-150 dark:ring-slate-800"
                                                 id="profile-image"
                                                 alt=""
@@ -178,27 +174,12 @@ export const Profile = () => {
                         </div>
                         <div className="flex flex-col items-center mt-5">
                             <h5 className="text-xl font-semibold">Favoritos</h5>
-                            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                                {articles.length === 0 ?
-                                    <div>
-                                        <p className="text-slate-400 mt-3">No hay publicaciones</p>
-                                        <Image src={logo} alt="logo" height={100} width={80} />
-                                    </div>
-                                    : articles.map((publicacion) =>
-                                        <Card
-                                            publicaciones={publicacion}
-                                            showDetail
-                                            key={publicacion._id}
-                                            onDelete={async (product_id) => {
-                                                const token = await getAccessTokenSilently();
-                                                console.log("deleting...", product_id);
-                                                await delete_publicacion(product_id, token);
-                                                mutate();
-                                                console.log("DELETED!!");
-                                            }}
-                                        />
-                                    )}
-                            </div>
+                            {articles.length === 0 ?
+                                <div>
+                                    <p className="text-slate-400 mt-3">No hay publicaciones</p>
+                                    <Image src={logo} alt="logo" height={100} width={80} />
+                                </div>
+                                : <CardContainer articles={articles} />}
                         </div>
                     </div>
                 </div>

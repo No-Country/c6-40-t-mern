@@ -62,32 +62,15 @@ export const Navbar = ({ children }) => {
                                                             </MenuButton>
                                                             <MenuList className="bg-slate-800 rounded pr-20 pl-2">
                                                                 {categories?.map((category) => {
-                                                                    return <ButtonNavar key={category.key} href={`/${category.key}`}>
+                                                                    return <ButtonNavar key={category.key} href={`/categories/${category.key}`}>
                                                                         <Sport />
                                                                         <span>{category.name}</span>
                                                                     </ButtonNavar>
-                                                                })
-                                                                }
-                                                                {/* <ButtonNavar href={`/categoria/${category.name}`}>
-                                                                    <Sport />
-                                                                    <span>Deportes</span>
-                                                                </ButtonNavar>
-                                                                <ButtonNavar href="/politica">
-                                                                    <Politica />
-                                                                    <span>Politica</span>
-                                                                </ButtonNavar>
-                                                                <ButtonNavar href="/internacional">
-                                                                    <Global />
-                                                                    <span>Internacional</span>
-                                                                </ButtonNavar> */}
+                                                                })}
                                                             </MenuList>
                                                         </>
                                                     )}
                                                 </Menu>
-                                                {/* <ButtonNavar href="/publicaciones">
-                                                    <Public />
-                                                    <span>Publicaciones</span>
-                                                </ButtonNavar> */}
                                                 <ButtonNavar href="/form">
                                                     <Edit />
                                                     <span>Publicar</span>
@@ -125,13 +108,13 @@ export const Navbar = ({ children }) => {
                                             Home
                                         </ButtonNavar>
                                     </Disclosure.Button>
-                                    {categories?.map((category) => {
-                                        return <Disclosure.Button key={category.key} className="block px-3 py-2 rounded-md text-base font-medium">
-                                            <ButtonNavar href={`/${category.key}`}>
+                                    {categories?.map((category) =>
+                                        <Disclosure.Button key={category.key} className="block px-3 py-2 rounded-md text-base font-medium">
+                                            <ButtonNavar href={`/categories/${category.key}`}>
                                                 {category.name}
                                             </ButtonNavar>
                                         </Disclosure.Button>
-                                    })}
+                                    )}
                                 </div>
                                 <MobileButton />
                             </Disclosure.Panel>

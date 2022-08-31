@@ -8,19 +8,15 @@ import { useState } from "react";
 interface ArticulosCardProps {
     publicaciones: Articulos;
     showDetail?: boolean;
-    onDelete: (articulo_id: string) => void;
 }
 
 export const Card: React.FC<ArticulosCardProps> = ({
     publicaciones,
-    onDelete,
 }) => {
 
     const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
 
     const { user } = useAuth0();
-
-    const router = useRouter();
 
     const [loadingDelete, setLoadingDelete] = useState(false)
     const [loadingFavorite, setLoadingFavorite] = useState(false)

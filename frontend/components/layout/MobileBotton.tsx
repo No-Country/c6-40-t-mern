@@ -17,17 +17,17 @@ export const MobileButton = () => {
                 <div className="pt-4 pb-3 border-t border-gray-700">
                     <div className="flex items-center px-5">
                         <div className="flex-shrink-0">
-                            {!user.picture && (
+                            {!user?.picture && (
                                 <img
                                     className="h-10 w-10 rounded-full"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7HjQfYqYBsspqy-iV0-Cw5uHo-cH-3TbhbAugLXu7RnL9lmqiPZUkqBy-XpKfandg7FQ&usqp=CAU" // src={user.picture}
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7HjQfYqYBsspqy-iV0-Cw5uHo-cH-3TbhbAugLXu7RnL9lmqiPZUkqBy-XpKfandg7FQ&usqp=CAU" // src={user?.picture}
                                     alt="photo"
                                 />
                             )}
-                            {user.picture && (
+                            {user?.picture && (
                                 <img
                                     className="h-10 w-10 rounded-full"
-                                    src={user.picture}
+                                    src={user?.picture}
                                     alt="photo"
                                 />
                             )}
