@@ -33,7 +33,7 @@ export const Profile = () => {
                 console.log(err)
             })
     }, [user])
-
+    console.log(userData)
     const handleClick = () => {
 
     }

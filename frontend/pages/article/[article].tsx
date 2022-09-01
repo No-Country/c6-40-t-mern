@@ -30,7 +30,6 @@ const Article = () => {
     const [loadingFavorite, setLoadingFavorite] = useState(false)
 
     const handleAddFavorite = () => {
-        console.log(user)
         setLoadingFavorite(true)
         fetch(`${API_ENDPOINT}/user/favorites/${user.sub}`, {
             method: 'POST',
@@ -38,7 +37,7 @@ const Article = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ article_id: articleContent?._id })
+            body: JSON.stringify({ article_id: article })
         })
     }
 
