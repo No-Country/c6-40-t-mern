@@ -87,7 +87,7 @@ module.exports.readArticlesByFavorites = async (req, res, next) => {
 
 module.exports.readArticle = async (req, res, next) => {
   try {
-    const article = await Article.findById(req.params.id).exec()
+    const article = await Article.findById(req.params.id).lean()
     if (!article) res.send('No se encontró un archivo con el ID especificado')
     else {
       const command = new GetObjectCommand({

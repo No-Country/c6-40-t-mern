@@ -1,10 +1,14 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { MdFavorite } from "react-icons/md"
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md"
 import { ThreeDots } from "react-loader-spinner"
+import parse from "html-react-parser"
+import { useAuth0 } from "@auth0/auth0-react"
 
 
 const Article = () => {
+
+    const { user } = useAuth0()
 
     const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
     const router = useRouter()
@@ -23,7 +27,20 @@ const Article = () => {
             })
     }, [article])
 
-    console.log(articleContent)
+    const [loadingFavorite, setLoadingFavorite] = useState(false)
+
+    const handleAddFavorite = () => {
+        console.log(user)
+        setLoadingFavorite(true)
+        fetch(`${API_ENDPOINT}/user/favorites/${user.sub}`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ article_id: articleContent?._id })
+        })
+    }
 
     return (
         <>
@@ -40,10 +57,18 @@ const Article = () => {
                         </h1>
                         {articleContent?.resume && <h4 className="text-xl font-semibold">{articleContent?.resume}</h4>}
                         <h6 className="mb-0 font-semibold">{articleContent?.createdAt}</h6>
-                        <span><MdFavorite size={25} />{articleContent?.favorites}</span>
+                        <span>
+                            <button disabled={loadingFavorite} onClick={handleAddFavorite} className="justify-center rounded-full bg-transparent hover:bg-red-500 text-red-700 hover:text-white">
+                                <i className="flex flex-row items-center">
+                                    {loadingFavorite ? <MdFavorite size={25} />
+                                        : <MdFavoriteBorder size={25} />}
+                                </i>
+                            </button>
+                            {articleContent?.favorites}
+                        </span>
                     </header>
                     <main>
-                        {articleContent?.content}
+                        {parse(articleContent?.content)}
                     </main>
                     <div>
                         <h6 className="mb-0 font-semibold">{articleContent?.tags.join()}</h6>
