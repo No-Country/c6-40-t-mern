@@ -2,14 +2,14 @@ import { css } from "@emotion/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export const ButtonNavar = ({ children, href }) => {
+export const ButtonNavbar = ({ children, href }) => {
   const { asPath } = useRouter();
   // console.log("CURRENT", asPath);
   const isActive = asPath == href;
 
   return (
     <Link href={href}>
-      <a className="hover:bg-gray-700 hover:text-white hover:rounded-lg hover:p-2.5 p-2.5 flex items-center gap-1"
+      <div className="hover:bg-gray-700 hover:text-white hover:rounded-lg hover:p-2.5 p-2.5 flex items-center gap-1"
         css={css`
           color: white;
           border: none;
@@ -24,7 +24,7 @@ export const ButtonNavar = ({ children, href }) => {
         `}
       >
         {children}
-      </a>
+      </div>
     </Link>
   );
 };

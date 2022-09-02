@@ -3,16 +3,15 @@ import "../styles/globals.css";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useMemo, useState } from "react";
 import { SWRConfig } from "swr";
-import { backend_fetcher } from "../lib/fetcher";
+import { backend_fetcher } from "../lib/fetcher"
+import { ToastContainer } from 'react-toastify';
 
 const AuthenticatedApp = ({ children }) => {
   // Fetch accessToken for api audience
   const [token, setToken] = useState("");
   const { getAccessTokenSilently } = useAuth0();
   useEffect(() => {
-    console.log("Fetching token");
     getAccessTokenSilently().then((mytoken) => {
-      console.log("We have a token", mytoken);
       setToken(mytoken);
     });
   }, []);
@@ -38,10 +37,10 @@ const MyApp = ({ Component, pageProps }) => {
       redirectUri={origin}
     >
       <AuthenticatedApp>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-    </AuthenticatedApp>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthenticatedApp>
     </Auth0Provider>
   );
 };
