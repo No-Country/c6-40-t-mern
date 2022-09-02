@@ -11,3 +11,10 @@ content-type: application/json
 	"email": "k@cd.com"
 }
 
+### All articles
+
+GET http://localhost:5000/api/v1/article/all
+
+###
+GET http://localhost:5000/api/v1/article/62ffadfc66e3253e599a1fc7
+

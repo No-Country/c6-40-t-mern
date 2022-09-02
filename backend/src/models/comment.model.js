@@ -3,19 +3,23 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const commentSchema = new Schema({
-  userId: {
+  articleId: {
     type: String,
     required: true
   },
   content: {
     type: String,
     required: true
+  },
+  userId: {
+    type: String,
+    require: true
   }
 }, { timestamps: true, versionKey: false })
 
 const validateComment = (comment) => {
   const schema = Joi.object({
-    userId: Joi.string().required(),
+    articleId: Joi.string().required(),
     content: Joi.string().required()
   })
   return schema.validate(comment)
