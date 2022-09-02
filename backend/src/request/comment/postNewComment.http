@@ -3,6 +3,7 @@ POST http://localhost:5000/api/v1/comment HTTP/1.1
 content-type: application/json
 
 {
-  "userId": "1234kenndy",
-  "content": "este es el primer comentario"
+  "userId": "google-oauth2|107012856689460631899",
+  "articleId": "62ffae0166e3253e599a1fca",
+  "content": "este es el segundo-2 comentario"
 }

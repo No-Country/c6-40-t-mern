@@ -6,7 +6,7 @@ const { createUserController, getUserById, deleteUserById, updateUserById, addFa
 const { checkJwt } = require('../config/auth0.config')
 const addUserToAuth0 = require('../middleware/addUserToAuth0')
 
-//router.post('/', checkJwt, addUserToAuth0, createUserController)
+// router.post('/', checkJwt, addUserToAuth0, createUserController)
 router.get('/:id', addUserToAuth0, getUserById)
 router.put('/:id', /*checkJwt,*/ addUserToAuth0, updateUserById)
 router.delete('/:id', /*checkJwt,*/ addUserToAuth0, deleteUserById)
