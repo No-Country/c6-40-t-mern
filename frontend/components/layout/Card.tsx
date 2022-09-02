@@ -134,7 +134,7 @@ export const Card: React.FC<ArticulosCardProps> = ({
                             </a>
                         </p> */}
                         <div className="flex text-sm leading-5 text-gray-500">
-                            <time dateTime="2020-03-16">publicaciones.createdAt</time>
+                            {/* <time dateTime="2020-03-16">{publicaciones.createdAt}</time> */}
                             <span className="mx-1">·</span>
                         </div>
                     </div>
