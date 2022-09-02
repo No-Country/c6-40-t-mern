@@ -14,8 +14,25 @@ import { AiOutlineGlobal as Global } from "react-icons/ai";
 import { FcConferenceCall as Politica } from "react-icons/fc";
 import Image from "next/image";
 import logo from "../../public/images/noticias.png";
+import { useEffect, useState } from "react";
 
 export const Footer = () => {
+
+    const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+
+    const [categories, setCategories] = useState([])
+
+    useEffect((): void => {
+        fetch(`${API_ENDPOINT}/category/`)
+            .then(res => res.json())
+            .then(res => {
+                setCategories(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <div className="bg-slate-800 p-10 flex-col justify-center">
             <div className="flex justify-center items-center">
@@ -33,19 +50,12 @@ export const Footer = () => {
                                 {isOpen ? 'Categorias' : 'Publicaciones'}
                             </MenuButton>
                             <MenuList className="bg-slate-800 rounded pr-20 pl-2">
-
-                                <ButtonNavbar href="/deportes">
-                                    <Sport />
-                                    <span>Deportes</span>
-                                </ButtonNavbar>
-                                <ButtonNavbar href="/politica">
-                                    <Politica />
-                                    <span>Politica</span>
-                                </ButtonNavbar>
-                                <ButtonNavbar href="/internacional">
-                                    <Global />
-                                    <span>Internacional</span>
-                                </ButtonNavbar>
+                                {categories?.map((category) => {
+                                    return <ButtonNavbar key={category.key} href={`/categories/${category.key}`}>
+                                        <Sport />
+                                        <span>{category.name}</span>
+                                    </ButtonNavbar>
+                                })}
                             </MenuList>
                         </>
                     )}

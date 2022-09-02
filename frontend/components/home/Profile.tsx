@@ -14,24 +14,30 @@ export const Profile = () => {
     const [userData, setUserData] = useState({})
     const [articles, setArticles] = useState([])
     const [bio, setBio] = useState("Nueva biografia")
+    const [loading, setLoading] = useState(false)
 
     useEffect((): void => {
-        fetch(`${API_ENDPOINT}/user/${user.sub}`)
-            .then(res => res.json())
-            .then(res => {
-                setUserData(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        fetch(`${API_ENDPOINT}/article/favorites/${user.sub}`)
-            .then(res => res.json())
-            .then(res => {
-                setArticles(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        setLoading(true)
+        if (user) {
+            fetch(`${API_ENDPOINT}/user/${user.sub}`)
+                .then(res => res.json())
+                .then(res => {
+                    setUserData(res)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            fetch(`${API_ENDPOINT}/article/favorites/${user.sub}`)
+                .then(res => res.json())
+                .then(res => {
+                    setArticles(res)
+                    setLoading(false)
+                })
+                .catch(err => {
+                    console.log(err)
+                    setLoading(false)
+                })
+        }
     }, [user])
     console.log(userData)
     const handleClick = () => {
@@ -41,7 +47,7 @@ export const Profile = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        fetch(`${API_ENDPOINT}/user/${user.sub}`, {
+        fetch(`${API_ENDPOINT}/user?/${user?.sub}`, {
             method: "PUT",
             mode: 'cors',
             headers: {
@@ -109,8 +115,8 @@ export const Profile = () => {
                                             ></label>
                                         </div>
                                         <div className="mt-4 text-white">
-                                            <h5 className="text-lg font-semibold">{user.name}</h5>
-                                            <p className="text-slate-400">{user.email}</p>
+                                            <h5 className="text-lg font-semibold">{user?.name}</h5>
+                                            <p className="text-slate-400">{user?.email}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +169,7 @@ export const Profile = () => {
                     </div>
                     <div className="lg:w-3/4 md:w-2/3 md:px-3 mt-1 md:mt-0">
                         <div className="pb-6 border-b border-gray-100 dark:border-gray-700 ">
-                            <h5 className="text-xl font-semibold">{user.name}</h5>
+                            <h5 className="text-xl font-semibold">{user?.name}</h5>
                             {!userData.bio ?
                                 <h4 className="text-xl font-semibold">No has cargado ninguna biografía</h4>
                                 : <p className="text-slate-400 mt-3">{userData.bio}</p>
@@ -177,7 +183,7 @@ export const Profile = () => {
             </div>
             <div className="flex flex-col items-center mt-5">
                 <h5 className="text-4xl font-semibold">Favoritos</h5>
-                {articles.length === 0 ?
+                {!loading && articles.length === 0 ?
                     <div>
                         <p className="text-slate-400 mt-3">No hay publicaciones</p>
                         <Image src={logo} alt="logo" height={100} width={80} />
