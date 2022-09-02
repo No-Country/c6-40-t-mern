@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useToast } from "@chakra-ui/react";
-import { title } from "process";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -11,7 +10,7 @@ const Form = () => {
   const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
 
   const { user } = useAuth0()
-
+  let router = useRouter()
   const [formState, setFormState] = useState({
     title: "",
     category: "",
@@ -60,7 +59,6 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const { title, category, resume, tags } = formState
-    console.log(formState)
     if (!title.trim() || !category || !resume.trim() || tags.length === 0 || !img) {
       setError(true)
     } else {
@@ -77,7 +75,8 @@ const Form = () => {
         body: formData
       })
         .then(res => {
-          if (res.status === 200) reload
+          if (res.status === 200)
+            router.push('/')
         })
         .catch(err => {
           console.log(err)
@@ -95,7 +94,7 @@ const Form = () => {
   return (
     <div className="w-full flex justify-center items-center">
       <form className="mt-32 bg-slate-700 p-5 rounded-md text-white items-center flex flex-col w-full md:w-4/5 lg:w-1/2 2xl:w-1/2" onSubmit={handleSubmit}>
-        <span className="text-lg font-bold mb-4">Nueva publicación</span>
+        <span className="text-lg font-bold mb-4">Crear publicación</span>
         <input className="w-full text-black p-3 rounded-md mb-2" type="text" placeholder="Titulo" name="title" onChange={handleChange} />
         <input className="w-full text-black p-3 rounded-md mb-2" type="textarea" placeholder="Resumen" name="resume" onChange={handleChange} />
         {categories.length > 0 ?

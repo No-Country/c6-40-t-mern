@@ -108,7 +108,7 @@ export const Profile = () => {
                                                 htmlFor="pro-img"
                                             ></label>
                                         </div>
-                                        <div className="mt-4">
+                                        <div className="mt-4 text-white">
                                             <h5 className="text-lg font-semibold">{user.name}</h5>
                                             <p className="text-slate-400">{user.email}</p>
                                         </div>
@@ -161,8 +161,8 @@ export const Profile = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="lg:w-3/4 md:w-2/3 md:px-3 mt-[30px] md:mt-0">
-                        <div className="pb-6 border-b border-gray-100 dark:border-gray-700">
+                    <div className="lg:w-3/4 md:w-2/3 md:px-3 mt-1 md:mt-0">
+                        <div className="pb-6 border-b border-gray-100 dark:border-gray-700 ">
                             <h5 className="text-xl font-semibold">{user.name}</h5>
                             {!userData.bio ?
                                 <h4 className="text-xl font-semibold">No has cargado ninguna biografía</h4>
@@ -172,17 +172,17 @@ export const Profile = () => {
                                 <Edi size={20} /> Editar
                             </button>
                         </div>
-                        <div className="flex flex-col items-center mt-5">
-                            <h5 className="text-xl font-semibold">Favoritos</h5>
-                            {articles.length === 0 ?
-                                <div>
-                                    <p className="text-slate-400 mt-3">No hay publicaciones</p>
-                                    <Image src={logo} alt="logo" height={100} width={80} />
-                                </div>
-                                : <CardContainer articles={articles} />}
-                        </div>
                     </div>
                 </div>
+            </div>
+            <div className="flex flex-col items-center mt-5">
+                <h5 className="text-4xl font-semibold">Favoritos</h5>
+                {articles.length === 0 ?
+                    <div>
+                        <p className="text-slate-400 mt-3">No hay publicaciones</p>
+                        <Image src={logo} alt="logo" height={100} width={80} />
+                    </div>
+                    : <CardContainer articles={articles} />}
             </div>
         </section >
     );

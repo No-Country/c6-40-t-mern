@@ -24,11 +24,17 @@ cd c6-40-t-mern
 
 ## Stack / Tecnologías
 
-<h2>FrontEnd</h2>
+<h3>FrontEnd</h3>
 
 | Technology | LINK |
 | ------ | ------ |
 | ReactJS | [https://es.reactjs.org/](https://es.reactjs.org/) |
+| Next | [https://nextjs.org/](https://nextjs.org/) |
+| Auth0 | [https://auth0.com/](https://auth0.com/) |
+| Chakra UI | [https://chakra-ui.com/](https://chakra-ui.com/) |
+| Emotion| [https://github.com/emotion-js/emotion](https://github.com/emotion-js/emotion) |
+| React Quill | [https://github.com/zenoamaro/react-quill](https://github.com/zenoamaro/react-quill) |
+| html-react-parser | [https://github.com/remarkablemark/html-react-parser](https://github.com/remarkablemark/html-react-parser#readme) |
 
 > cd frontend
 
@@ -38,11 +44,11 @@ cd c6-40-t-mern
 2) Run the project
 > npm run start
 
-<h2>Backend</h2>
+<h3>Backend</h3>
 
 | Technology | LINK |
 | ------ | ------ |
-| Typecript | [https://www.typescriptlang.org/](https://www.typescriptlang.org/) |
+| Typescript | [https://www.typescriptlang.org/](https://www.typescriptlang.org/) |
 | Nodejs | [https://nodejs.org/es/](https://nodejs.org/es/) |
 | Mongoose | [https://mongoosejs.com/](https://mongoosejs.com/) |
 | MongoDB | [https://www.mongodb.com/es](https://www.mongodb.com/es) |
@@ -62,6 +68,7 @@ cd c6-40-t-mern
 | Developer | Rol | LinkedIn | GitHub |
 | ------- | ------ | ------ | ------ |
 | Kenny Julián Luque Ticona | Backend | https://www.linkedin.com/in/kennyluquet/ | https://github.com/Kenny2397 |
+| Luca Hardmeier | Full Stack | https://www.linkedin.com/in/luca-hardmeier/ | https://github.com/lucaHardmeier |
 
 
 ## Link Deploy 

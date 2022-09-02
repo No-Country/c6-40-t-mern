@@ -36,7 +36,7 @@ module.exports.createArticle = async (req, res, next) => {
 // session.endSession()
 
 module.exports.readAllArticles = async (req, res, next) => {
-  const articles = await Article.find({}, '_id title tags author_id img resume').lean()
+  const articles = await Article.find({}, '_id title tags author_id img resume createdAt').lean()
 
   for (const article of articles) {
     if (!article.img) continue
@@ -53,7 +53,7 @@ module.exports.readAllArticles = async (req, res, next) => {
 
 module.exports.readArticlesByCategory = async (req, res, next) => {
 
-  const articles = await Article.find({ category: req.params.category }, '_id title tags author_id img resume').lean()
+  const articles = await Article.find({ category: req.params.category }, '_id title tags author_id img resume createdAt').lean()
 
   for (const article of articles) {
     const command = new GetObjectCommand({
@@ -70,7 +70,7 @@ module.exports.readArticlesByCategory = async (req, res, next) => {
 module.exports.readArticlesByFavorites = async (req, res, next) => {
   console.log(req.params)
   const user = await User.findOne({ id: req.params.id })
-  const articles = await Article.find({ _id: user.favorites }, '_id title tags author_id img resume').lean()
+  const articles = await Article.find({ _id: user.favorites }, '_id title tags author_id img resume createdAt').lean()
 
   for (const article of articles) {
     const command = new GetObjectCommand({

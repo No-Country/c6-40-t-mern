@@ -41,41 +41,42 @@ const Article = () => {
         })
     }
 
-    return (
+
+    return Object.keys(articleContent).length === 0 ? <div><ThreeDots color="#9c6419" height={120} width={120} /></div> :
         <>
-            {Object.keys(articleContent).length === 0 ? <div><ThreeDots color="#9c6419" height={120} width={120} /></div> :
-                <>
-                    <header>
-                        <div className="max-w-screen-lg m-auto mt-20">
-                            <div className="w-full relative select-none">
-                                {articleContent?.img && <img src={articleContent?.img.url} alt={articleContent?.img.name} />}
-                            </div>
+            <header className="w-full flex justify-center items-center">
+                <div className="items-center flex flex-col w-full md:w-4/5 lg:w-1/2 2xl:w-5/6">
+                    <div className="max-w-screen-lg m-auto mt-20">
+                        <div className="w-full relative select-none">
+                            {articleContent?.img && <img src={articleContent?.img.url} alt={articleContent?.img.name} />}
                         </div>
-                        <h1 className="mt-20 text-3xl lg:flex lg:flex-row lg:items-center lg:justify-center gap-2 ">
-                            {articleContent?.title}
-                        </h1>
-                        {articleContent?.resume && <h4 className="text-xl font-semibold">{articleContent?.resume}</h4>}
-                        <h6 className="mb-0 font-semibold">{articleContent?.createdAt}</h6>
-                        <span>
-                            <button disabled={loadingFavorite} onClick={handleAddFavorite} className="justify-center rounded-full bg-transparent hover:bg-red-500 text-red-700 hover:text-white">
-                                <i className="flex flex-row items-center">
-                                    {loadingFavorite ? <MdFavorite size={25} />
-                                        : <MdFavoriteBorder size={25} />}
-                                </i>
-                            </button>
-                            {articleContent?.favorites}
-                        </span>
-                    </header>
-                    <main>
-                        {parse(articleContent?.content)}
-                    </main>
-                    <div>
-                        <h6 className="mb-0 font-semibold">{articleContent?.tags.join()}</h6>
                     </div>
-                </>
-            }
+                    <h1 className="mt-20 text-5xl lg:flex lg:flex-row lg:items-center lg:justify-center gap-2 ">
+                        {articleContent?.title}
+                    </h1>
+                    {articleContent?.resume && <h4 className="text-xl font-semibold">{articleContent?.resume}</h4>}
+                    <h6 className="mb-0 font-semibold">{articleContent?.createdAt}</h6>
+                    <span>
+                        <button disabled={loadingFavorite} onClick={handleAddFavorite} className="justify-center rounded-full bg-transparent hover:bg-red-500 text-red-700 hover:text-white">
+                            <i className="flex flex-row items-center">
+                                {loadingFavorite ? <MdFavorite size={25} />
+                                    : <MdFavoriteBorder size={25} />}
+                            </i>
+                        </button>
+                        {articleContent?.favorites}
+                    </span>
+                </div>
+            </header>
+            <main className="w-full flex justify-center items-center">
+                <div className="mt-4 bg-slate-700 p-5 rounded-md text-white items-center flex flex-col w-full md:w-4/5 lg:w-1/2 2xl:w-1/2">
+                    {parse(articleContent?.content)}
+                </div>
+            </main>
+            <div>
+                <h6 className="mb-0 font-semibold">{articleContent?.tags.join()}</h6>
+            </div>
         </>
-    )
+
 }
 
 export default Article

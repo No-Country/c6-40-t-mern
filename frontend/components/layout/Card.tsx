@@ -128,15 +128,14 @@ export const Card: React.FC<ArticulosCardProps> = ({
                         </a>
                     </div>
                     <div className="ml-3">
-                        <p className="text-sm leading-5 font-medium text-gray-900">
+                        {/* <p className="text-sm leading-5 font-medium text-gray-900">
                             <a href="#" className="hover:underline">
                                 Fulanito Perez
                             </a>
-                        </p>
+                        </p> */}
                         <div className="flex text-sm leading-5 text-gray-500">
-                            <time dateTime="2020-03-16">Ago 15, 2022</time>
+                            <time dateTime="2020-03-16">publicaciones.createdAt</time>
                             <span className="mx-1">·</span>
-                            <span>13 min read</span>
                         </div>
                     </div>
                 </div>
