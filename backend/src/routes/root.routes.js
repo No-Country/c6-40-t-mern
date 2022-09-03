@@ -12,6 +12,12 @@ router.get('/', (req, res) => {
     <title>API Blogg</title>
   </head>
   <body>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-colapse: colapse;
+      }
+    </style>
     <h1>API Blogger</h1>
     <h2>/api/v1</h2>
     <h3>Endpoint Comments</h3>
