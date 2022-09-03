@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
     <h1>API Blogger</h1>
     <h2>/api/v1</h2>
     <h3>Endpoint Comments</h3>
-    <table>
+    <table style="width: 100%;">
       <thead>
           <tr>
               <th>Method</th><th>URI</th>
