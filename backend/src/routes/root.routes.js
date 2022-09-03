@@ -10,14 +10,14 @@ router.get('/', (req, res) => {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Blogg</title>
-  </head>
-  <body>
     <style>
       table, th, td {
         border: 1px solid black;
-        border-colapse: colapse;
+        border-colapse: collapse;
       }
     </style>
+  </head>
+  <body>
     <h1>API Blogger</h1>
     <h2>/api/v1</h2>
     <h3>Endpoint Comments</h3>
@@ -39,6 +39,8 @@ router.get('/', (req, res) => {
           </tr>
       </tbody>
     <table>
+
+    <p>Documentacion en proceso ...</p>
   </body>
   </html>
   `)
