@@ -34,6 +34,7 @@ cd c6-40-t-mern
 | Chakra UI | [https://chakra-ui.com/](https://chakra-ui.com/) |
 | Emotion| [https://github.com/emotion-js/emotion](https://github.com/emotion-js/emotion) |
 | React Quill | [https://github.com/zenoamaro/react-quill](https://github.com/zenoamaro/react-quill) |
+| Typescript | [https://www.typescriptlang.org/](https://www.typescriptlang.org/) |
 | html-react-parser | [https://github.com/remarkablemark/html-react-parser](https://github.com/remarkablemark/html-react-parser#readme) |
 
 > cd frontend
@@ -48,12 +49,13 @@ cd c6-40-t-mern
 
 | Technology | LINK |
 | ------ | ------ |
-| Typescript | [https://www.typescriptlang.org/](https://www.typescriptlang.org/) |
 | Nodejs | [https://nodejs.org/es/](https://nodejs.org/es/) |
 | Mongoose | [https://mongoosejs.com/](https://mongoosejs.com/) |
-| MongoDB | [https://www.mongodb.com/es](https://www.mongodb.com/es) |
+| MongoDB Atlas | [https://www.mongodb.com/es](https://www.mongodb.com/es) |
 | Expressjs | [https://expressjs.com/](https://expressjs.com/) |
-
+| Sentry.io | [https://sentry.io.com](https://sentry.io.com) |
+| AWS (S3) | [https://aws.amazon.com/s3/](https://aws.amazon.com/s3/) |
+| Auth0 | [https://auth0.com/](https://auth0.com/) |
 
 > cd backend
 
@@ -73,7 +75,7 @@ cd c6-40-t-mern
 
 
 ## Link Deploy 
-> API Backend <br>
+> API Backend - Vercel <br>
 [https://c6-40-t-mern-blog.vercel.app/](https://c6-40-t-mern-blog.vercel.app/)
 
 ## Endpoints
@@ -98,3 +100,4 @@ cd c6-40-t-mern
         </tr>
     </tbody>
 <table>
+<p>Documentacion en proceso ...</p>
