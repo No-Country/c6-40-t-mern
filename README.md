@@ -69,7 +69,7 @@ cd c6-40-t-mern
 
 | Developer | Rol | LinkedIn | GitHub |
 | ------- | ------ | ------ | ------ |
-| Kenny Julián Luque Ticona | Backend | https://www.linkedin.com/in/kennyluquet/ | https://github.com/Kenny2397 |
+| Kenny Luque | Backend | https://www.linkedin.com/in/kennyluquet/ | https://github.com/Kenny2397 |
 | Luca Hardmeier | Full Stack | https://www.linkedin.com/in/luca-hardmeier/ | https://github.com/lucaHardmeier |
 | Jesus Cabrita | Full Stack |https://www.linkedin.com/in/jesus-cabrita-48564222b/ | https://github.com/jesuscabrita |
 
