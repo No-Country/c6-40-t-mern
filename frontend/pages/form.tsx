@@ -60,9 +60,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (true) {
-      setError(true)
-    } else {
+    
 
       const formData = new FormData()
       formData.append("img", img)
@@ -83,7 +81,7 @@ const Form = () => {
         .catch(err => {
           console.log(err)
         })
-    }
+    
   }
 
   const handleChange = (e) => {
