@@ -9,7 +9,6 @@ const { User } = require('../models/users')
 const { BUCKET_NAME } = process.env
 
 module.exports.createArticle = async (req, res, next) => {
-
   const { command, img } = await imgUploadConfig(req.file)
 
   const article = new Article({ ...req.body, img })
@@ -36,7 +35,7 @@ module.exports.createArticle = async (req, res, next) => {
 // session.endSession()
 
 module.exports.readAllArticles = async (req, res, next) => {
-  const articles = await Article.find({}, '_id title tags author_id img resume').lean()
+  const articles = await Article.find({}, '_id title tags author_id img resume').populate('comments').lean()
 
   for (const article of articles) {
     if (!article.img) continue
@@ -53,7 +52,7 @@ module.exports.readAllArticles = async (req, res, next) => {
 
 module.exports.readArticlesByCategory = async (req, res, next) => {
 
-  const articles = await Article.find({ category: req.params.category }, '_id title tags author_id img resume').lean()
+  const articles = await Article.find({ category: req.params.category }, '_id title tags author_id img resume').populate('comments').lean()
 
   for (const article of articles) {
     const command = new GetObjectCommand({
@@ -68,9 +67,9 @@ module.exports.readArticlesByCategory = async (req, res, next) => {
 }
 
 module.exports.readArticlesByFavorites = async (req, res, next) => {
-  console.log(req.params)
+
   const user = await User.findOne({ id: req.params.id })
-  const articles = await Article.find({ _id: user.favorites }, '_id title tags author_id img resume').lean()
+  const articles = await Article.find({ _id: user.favorites }, '_id title tags author_id img resume').populate('comments').lean()
 
   for (const article of articles) {
     const command = new GetObjectCommand({
@@ -84,19 +83,26 @@ module.exports.readArticlesByFavorites = async (req, res, next) => {
   res.send(articles.length === 0 ? null : articles)
 }
 
-
 module.exports.readArticle = async (req, res, next) => {
   try {
-    const article = await Article.findById(req.params.id, '-img').exec()
+    const article = await Article.findById(req.params.id, '-img').populate('comments').exec()
     if (!article) res.send('No se encontró un archivo con el ID especificado')
-    else res.send(article)
+    else {
+      const command = new GetObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: article.img.name
+      })
+      const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
+      article.img.url = url
+      res.send(article)
+    }
+
   } catch (err) {
     next(err)
   }
 }
 
 module.exports.updateArticle = async (req, res, next) => {
-
   const session = await mongoose.startSession()
   try {
     session.startTransaction()
@@ -116,7 +122,7 @@ module.exports.updateArticle = async (req, res, next) => {
       newData.img = img
     }
 
-    const article = await Article.findByIdAndUpdate(req.params.id, newData)
+    const article = await Article.findByIdAndUpdate(req.params.id, newData).populate('comments')
     if (!article) res.status(400).send('No se encontró un archivo con el ID especificado')
     res.send(article)
     await session.commitTransaction()
@@ -133,15 +139,15 @@ module.exports.deleteArticle = async (req, res, next) => {
     session.startTransaction()
     const article = await Article.findByIdAndDelete(req.params.id)
     if (!article) res.status(400).send('No se encontró un archivo con el ID especificado')
-    else {
+    else if (article.img) {
       const command = new DeleteObjectCommand({
         Bucket: BUCKET_NAME,
         Key: article.img.name
       })
       const imgDeleted = await s3.send(command)
       if (imgDeleted.$metadata.httpStatusCode !== 204) throw new Error(imgDeleted)
-      res.send(article)
     }
+    res.send(article)
     await session.commitTransaction()
   } catch (err) {
     next(err)

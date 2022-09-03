@@ -37,10 +37,14 @@ app.use(
     credentials: true
   })
 )
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 require('./src/config/mongoose.config')
+
+// const { checkJwt } = require('./src/config/auth0.config')
+// app.use(checkJwt)
 
 app.use('/', root)
 app.use('/api/v1/user', user)

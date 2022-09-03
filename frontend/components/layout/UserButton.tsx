@@ -49,7 +49,7 @@ export const UserButton = () => {
             >
               <span className="sr-only">Open user menu</span>
               {show ? "" : ""}
-              {!user.picture && (
+              {!user?.picture && (
                 <img
                   css={css`
                     -webkit-user-select: none;
@@ -57,11 +57,11 @@ export const UserButton = () => {
                     user-select: none;
                   `}
                   className="h-8 w-8 rounded-full"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7HjQfYqYBsspqy-iV0-Cw5uHo-cH-3TbhbAugLXu7RnL9lmqiPZUkqBy-XpKfandg7FQ&usqp=CAU" // src={user.picture}
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7HjQfYqYBsspqy-iV0-Cw5uHo-cH-3TbhbAugLXu7RnL9lmqiPZUkqBy-XpKfandg7FQ&usqp=CAU" // src={user?.picture}
                   alt="photo"
                 />
               )}
-              {user.picture && (
+              {user?.picture && (
                 <img
                   css={css`
                     -webkit-user-select: none;
@@ -69,7 +69,7 @@ export const UserButton = () => {
                     user-select: none;
                   `}
                   className="h-8 w-8 rounded-full"
-                  src={user.picture}
+                  src={user?.picture}
                   alt="photo"
                 />
               )}

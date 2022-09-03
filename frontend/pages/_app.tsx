@@ -11,9 +11,7 @@ const AuthenticatedApp = ({ children }) => {
   const [token, setToken] = useState("");
   const { getAccessTokenSilently } = useAuth0();
   useEffect(() => {
-    console.log("Fetching token");
     getAccessTokenSilently().then((mytoken) => {
-      console.log("We have a token", mytoken);
       setToken(mytoken);
     });
   }, []);

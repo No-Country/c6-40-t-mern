@@ -22,6 +22,6 @@ export const Layout = ({ children }) => (
     <Navbar>
       <div>{children}</div>
     </Navbar>
-    <Footer/>
+    <Footer />
   </div>
 );

@@ -1,15 +1,23 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
-import { ThreeDots } from "react-loader-spinner";
 import Carousel from "../components/home/Carousel";
-import { Card } from "../components/layout/Card";
-import { publicacionesUser } from "../hooks/publicaionesUser";
-import { delete_publicacion } from "../lib/publicaciones.repo";
+import CardContainer from "../components/layout/CardContainer";
 
 const Home = () => {
 
-  const { data: articles, mutate } = publicacionesUser();
-  const { getAccessTokenSilently } = useAuth0()
+  const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+  const [articles, setArticles] = useState([])
+
+  useEffect((): void => {
+    fetch(`${API_ENDPOINT}/article/all`)
+      .then(res => res.json())
+      .then(res => {
+        setArticles(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
 
   const { user } = useAuth0();
   return (
@@ -23,23 +31,7 @@ const Home = () => {
       <Carousel />
       <div className="flex flex-col items-center mt-5">
         <div className="mt-20 font-extrabold tracking-tight"></div>
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {!articles ? <div><ThreeDots color="#9c6419" height={120} width={120} /></div>
-            : articles.map((publicacion) =>
-              <Card
-                publicaciones={publicacion}
-                showDetail
-                key={publicacion._id}
-                onDelete={async (product_id) => {
-                  const token = await getAccessTokenSilently();
-                  console.log("deleting...", product_id);
-                  await delete_publicacion(product_id, token);
-                  mutate();
-                  console.log("DELETED!!");
-                }}
-              />
-            )}
-        </div>
+        <CardContainer articles={articles} />
       </div>
     </div>
   )

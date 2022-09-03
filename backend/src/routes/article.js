@@ -15,7 +15,7 @@ router.get('/all', readAllArticles)
 router.get('/category/:category', readArticlesByCategory)
 router.get('/favorites/:id', readArticlesByFavorites)
 router.get('/:id', readArticle)
-router.put('/:id', checkJwt, canCreateArticles, imgHandler, articleValidation, updateArticle)
-router.delete('/:id', checkJwt, canDeleteArticles, deleteArticle)
+router.put('/:id', /*checkJwt, canCreateArticles,*/ imgHandler, articleValidation, updateArticle)
+router.delete('/:id', /*checkJwt, canDeleteArticles,*/ deleteArticle)
 
 module.exports = router
