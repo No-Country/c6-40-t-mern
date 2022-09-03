@@ -5,13 +5,15 @@ import { FiEdit as Edi } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import CardContainer from "../layout/CardContainer";
 
+
+
 export const Profile = () => {
 
     const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
 
     const { user, logout } = useAuth0();
 
-    const [userData, setUserData] = useState({})
+    const [userData, setUserData] = useState({bio})
     const [articles, setArticles] = useState([])
     const [bio, setBio] = useState("Nueva biografia")
     const [loading, setLoading] = useState(false)
