@@ -13,19 +13,26 @@ router.get('/', (req, res) => {
   </head>
   <body>
     <h1>API Blogger</h1>
-    <table >
+    <h2>/api/v1</h2>
+    <h3>Endpoint Comments</h3>
+    <table>
       <thead>
-        <tr>
-          <th>Endpoint</th>
-        </tr>
+          <tr>
+              <th>Method</th><th>URI</th>
+          </tr>
       </thead>
-
       <tbody>
-        <tr>
-          <td>/api/v1/user</td>
-        </tr>
+          <tr>
+              <td>POST</td><td>/comment</td>
+          </tr>
+          <tr>
+            <td>GET</td><td>/comment/:idArticle</td>
+          </tr>
+          <tr>
+            <td>DELETE</td><td>/comment/:id</td>
+          </tr>
       </tbody>
-    </table>
+    <table>
   </body>
   </html>
   `)

@@ -19,9 +19,9 @@ app.use(Sentry.Handlers.tracingHandler())
 
 // Routes import
 const root = require('./src/routes/root.routes')
-const user = require('./src/routes/user')
-const articles = require('./src/routes/article')
-const category = require('./src/routes/category')
+const user = require('./src/routes/user.routes')
+const articles = require('./src/routes/article.routes')
+const category = require('./src/routes/category.routes')
 const comment = require('./src/routes/comment.routes')
 
 // const notFound = require('./src/middleware/notFound')
