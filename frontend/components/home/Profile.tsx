@@ -172,10 +172,10 @@ export const Profile = () => {
                     <div className="lg:w-3/4 md:w-2/3 md:px-3 mt-1 md:mt-0">
                         <div className="pb-6 border-b border-gray-100 dark:border-gray-700 ">
                             <h5 className="text-xl font-semibold">{user?.name}</h5>
-                            {!userData.bio ?
+                            {/* {!userData.bio ?
                                 <h4 className="text-xl font-semibold">No has cargado ninguna biografía</h4>
                                 : <p className="text-slate-400 mt-3">{userData.bio}</p>
-                            }
+                            } */}
                             <button onClick={handleClick} className="mt-5 text-yellow-600 hover:bg-yellow-200 font-montserrat py-2 px-8 font-medium rounded-xl transition-all duration-300 flex">
                                 <Edi size={20} /> Editar
                             </button>
