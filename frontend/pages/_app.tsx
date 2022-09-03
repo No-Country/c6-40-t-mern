@@ -4,7 +4,7 @@ import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useMemo, useState } from "react";
 import { SWRConfig } from "swr";
 import { backend_fetcher } from "../lib/fetcher"
-import { ToastContainer } from 'react-toastify';
+
 
 const AuthenticatedApp = ({ children }) => {
   // Fetch accessToken for api audience
