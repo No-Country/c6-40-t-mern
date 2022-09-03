@@ -69,6 +69,7 @@ cd c6-40-t-mern
 | ------- | ------ | ------ | ------ |
 | Kenny Julián Luque Ticona | Backend | https://www.linkedin.com/in/kennyluquet/ | https://github.com/Kenny2397 |
 | Luca Hardmeier | Full Stack | https://www.linkedin.com/in/luca-hardmeier/ | https://github.com/lucaHardmeier |
+| Jesus Cabrita | Full Stack |https://www.linkedin.com/in/jesus-cabrita-48564222b/ | https://github.com/jesuscabrita |
 
 
 ## Link Deploy 
@@ -88,6 +89,12 @@ cd c6-40-t-mern
     <tbody>
         <tr>
             <td>POST</td><td>api/v1/comment</td>
+        </tr>
+        <tr>
+          <td>GET</td><td>api/v1/comment/:idArticle</td>
+        </tr>
+        <tr>
+          <td>DELETE</td><td>api/v1/comment/:id</td>
         </tr>
     </tbody>
 <table>

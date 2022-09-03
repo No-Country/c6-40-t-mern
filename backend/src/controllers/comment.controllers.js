@@ -1,4 +1,4 @@
-const { Comment } = require('../models/comment.model')
+const { Comment } = require('../models/comments')
 
 const { Article } = require('../models/articles')
 
