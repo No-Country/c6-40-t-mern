@@ -13,7 +13,7 @@ export const Profile = () => {
 
     const { user, logout } = useAuth0();
 
-    const [userData, setUserData] = useState({bio})
+    const [userData, setUserData] = useState({})
     const [articles, setArticles] = useState([])
     const [bio, setBio] = useState("Nueva biografia")
     const [loading, setLoading] = useState(false)
