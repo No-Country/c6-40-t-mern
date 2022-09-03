@@ -73,6 +73,9 @@ cd c6-40-t-mern
 | Luca Hardmeier | Full Stack | https://www.linkedin.com/in/luca-hardmeier/ | https://github.com/lucaHardmeier |
 | Jesus Cabrita | Full Stack |https://www.linkedin.com/in/jesus-cabrita-48564222b/ | https://github.com/jesuscabrita |
 
+## Team Leader
+
+  William Aguirre
 
 ## Link Deploy 
 > API Backend - Vercel <br>
