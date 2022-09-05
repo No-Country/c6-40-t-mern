@@ -85,7 +85,7 @@ module.exports.readArticlesByFavorites = async (req, res, next) => {
 
 module.exports.readArticle = async (req, res, next) => {
   try {
-    const article = await Article.findById(req.params.id, '-img').populate('comments').exec()
+    const article = await Article.findById(req.params.id).populate('comments').lean()
     if (!article) res.send('No se encontró un archivo con el ID especificado')
     else {
       const command = new GetObjectCommand({
@@ -94,6 +94,7 @@ module.exports.readArticle = async (req, res, next) => {
       })
       const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
       article.img.url = url
+      console.log(article)
       res.send(article)
     }
 
